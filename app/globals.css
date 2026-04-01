@@ -1,0 +1,253 @@
+@import "tailwindcss";
+
+:root {
+  --color-bg: #0d0d0d;
+  --color-bg-alt: #111111;
+  --color-bg-section: #111111;
+  --color-border: #1a1a1a;
+  --color-border-bright: #2a2a2a;
+  --color-green: #00ff41;
+  --color-green-dim: #00aa2b;
+  --color-green-glow: rgba(0, 255, 65, 0.15);
+  --color-text: #aaaaaa;
+  --color-muted: #555555;
+  --color-white: #ffffff;
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+}
+
+/* ─── Phosphor glow on green text ─── */
+.glow {
+  text-shadow:
+    0 0 4px rgba(0, 255, 65, 0.7),
+    0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+/* ─── Subtle glow variant ─── */
+.glow-subtle {
+  text-shadow:
+    0 0 3px rgba(0, 255, 65, 0.4),
+    0 0 8px rgba(0, 255, 65, 0.15);
+}
+
+/* ─── Scanline overlay ─── */
+body::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.04) 2px,
+    rgba(0, 0, 0, 0.04) 4px
+  );
+}
+
+/* ─── Blinking cursor ─── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* ─── Section reveal on scroll (JS adds .is-visible) ─── */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Staggered section reveal delays ─── */
+.section-reveal:nth-child(2) { transition-delay: 0.05s; }
+.section-reveal:nth-child(3) { transition-delay: 0.1s; }
+.section-reveal:nth-child(4) { transition-delay: 0.15s; }
+
+/* ─── Section separator ─── */
+.section-separator {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-border-bright) 20%,
+    var(--color-green-glow) 50%,
+    var(--color-border-bright) 80%,
+    transparent
+  );
+  margin: 2.5rem 0;
+}
+
+/* ─── Alternating section backgrounds ─── */
+.section-alt {
+  background-color: var(--color-bg-alt);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+}
+
+/* ─── Boot sequence line appear ─── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.line-appear {
+  animation: fadeIn 0.12s ease forwards;
+}
+
+/* ─── Skill bar fill animation ─── */
+@keyframes skillFill {
+  from { width: 0%; }
+  to   { width: var(--skill-width); }
+}
+
+.skill-bar-fill {
+  animation: skillFill 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-play-state: paused;
+}
+
+.skill-bar-fill.animate {
+  animation-play-state: running;
+}
+
+/* ─── Interactive link styles ─── */
+.link-glow {
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.link-glow:hover {
+  color: var(--color-green);
+  text-shadow:
+    0 0 4px rgba(0, 255, 65, 0.6),
+    0 0 12px rgba(0, 255, 65, 0.2);
+}
+
+/* ─── Project card hover ─── */
+.project-card {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  border: 1px solid var(--color-border);
+}
+
+.project-card:hover {
+  border-color: var(--color-green-dim);
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.08), 0 4px 16px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+/* ─── Nav link hover ─── */
+.nav-link {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-green);
+  box-shadow: 0 0 4px rgba(0, 255, 65, 0.5);
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-link:hover {
+  color: var(--color-green);
+}
+
+/* ─── Certification badge ─── */
+.cert-badge {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid var(--color-border);
+}
+
+.cert-badge:hover {
+  border-color: var(--color-green-dim);
+  box-shadow: 0 0 16px rgba(0, 255, 65, 0.1);
+}
+
+/* ─── Experience timeline ─── */
+.timeline-item {
+  position: relative;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--color-border);
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--color-green-dim);
+  box-shadow: 0 0 6px rgba(0, 255, 65, 0.4);
+}
+
+/* ─── Tag pill style ─── */
+.tag-pill {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--color-border);
+  color: var(--color-muted);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.tag-pill:hover {
+  border-color: var(--color-green-dim);
+  color: var(--color-green-dim);
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-border); }
+
+/* ─── Skip to content (a11y) ─── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 10000;
+  padding: 0.5rem 1rem;
+  background: var(--color-green);
+  color: var(--color-bg);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 0;
+}

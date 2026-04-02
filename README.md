@@ -1,31 +1,47 @@
-# Personal Portfolio — Bogdan Istrate
+# Bogdan-Cosmin Istrate — Interactive Terminal Portfolio
 
 ![CI](https://github.com/istrate-bogdan-dev/ci-cd-personal-website-github-vercel/actions/workflows/ci.yml/badge.svg)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)
 
-Terminal-style personal portfolio for a Cloud Engineer / DevOps / DevSecOps professional.
+A terminal-style interactive portfolio for a Cloud Solutions Architect & DevOps professional. Visitors navigate the site by typing — or clicking — commands in a fully functional browser-based terminal.
 
-**Live:** [bogdanistrate.vercel.app](https://bogdanistrate.vercel.app)
+**Live:** [ci-cd-personal-website-github-verce.vercel.app](https://ci-cd-personal-website-github-verce.vercel.app)  
+**GitHub:** [github.com/istrate-bogdan-dev](https://github.com/istrate-bogdan-dev)
 
 ---
 
 ## Overview
 
-A single-page portfolio built with a terminal / hacker aesthetic. It features a boot sequence animation on load, scroll-triggered section reveals, animated skill bars, and a sticky scroll-spy navigation bar.
+The portfolio renders as a macOS-style terminal window with an animated boot sequence on load. All content is accessible via interactive commands — designed to impress technical recruiters while remaining navigable for non-technical HR through clickable command hints.
 
-Sections: **About · Skills · Certifications · Projects · Experience · Contact**
+### Available Commands
+
+| Command | Description |
+|---------|-------------|
+| `/help` | List all available commands (clickable) |
+| `/about` | Professional summary & background |
+| `/skills` | Expertise across Cloud, DevOps & DevSecOps |
+| `/certifications` | AWS SAA-C03 certification & credentials |
+| `/logs` | Full work experience timeline |
+| `/projects` | GitHub projects & case studies |
+| `/status` | Current availability & preferences |
+| `/contact` | Email, GitHub & LinkedIn |
+| `/deploy` | Easter egg 🚀 |
 
 ---
 
 ## Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript |
+|-------|------------|
+| Framework | Next.js 16.2 (App Router, Turbopack) |
+| Language | TypeScript 5 |
 | Styling | Tailwind CSS v4 |
-| Font | JetBrains Mono |
+| Font | JetBrains Mono (Google Fonts) |
 | Hosting | Vercel |
-| CI | GitHub Actions |
+| CI/CD | GitHub Actions |
 
 ---
 
@@ -33,25 +49,22 @@ Sections: **About · Skills · Certifications · Projects · Experience · Conta
 
 ```
 app/
-  layout.tsx          # Root layout, font loading, metadata
-  page.tsx            # Main page — boot gate + section assembly
-  globals.css         # Global styles, animations, CSS variables
+  layout.tsx              # Root layout, font loading, metadata
+  page.tsx                # Entry point — renders TerminalShell
+  globals.css             # CSS variables, animations, scrollbar
 
 components/
-  terminal/
-    NavBar.tsx        # Sticky top nav with scroll spy
-    TerminalWindow.tsx # Terminal chrome (traffic lights, title bar)
-    BootSequence.tsx  # Animated boot sequence on first load
-    CommandLine.tsx   # Reusable prompt-style command line
-    useScrollReveal.ts # Scroll-triggered animation hooks
-  sections/
-    Hero.tsx          # Name, title, summary
-    About.tsx         # Background and background info
-    Skills.tsx        # Animated skill bars
-    Certifications.tsx # AWS and other certs
-    Projects.tsx      # Project cards with links
-    Experience.tsx    # Work history
-    Contact.tsx       # Links and contact info
+  shell/
+    TerminalShell.tsx     # Top-level orchestrator — boot gate + command dispatch
+    TerminalWindow.tsx    # Terminal chrome (title bar, traffic lights, body)
+    BootScreen.tsx        # Animated boot sequence on first load
+    CommandInput.tsx      # Controlled input bar with auto-focus
+    OutputRenderer.tsx    # Renders command output history
+    useTerminal.ts        # State machine — boot, type, submit, clear
+
+  commands/
+    registry.tsx          # All command definitions + exported registry object
+    index.ts              # CommandEntry / CommandRegistry types + registerCommand
 ```
 
 ---
@@ -61,6 +74,10 @@ components/
 **Prerequisites:** Node.js 20+
 
 ```bash
+# Clone the repository
+git clone https://github.com/istrate-bogdan-dev/ci-cd-personal-website-github-vercel.git
+cd ci-cd-personal-website-github-vercel
+
 # Install dependencies
 npm install
 
@@ -68,7 +85,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000) and type `/help` to get started.
 
 ---
 
@@ -83,12 +100,12 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## CI / CD
+## CI / CD Pipeline
 
-GitHub Actions runs on every push to `main` and `dev`, and on pull requests targeting `main`:
+GitHub Actions runs automatically on every push to `main` and `dev`, and on pull requests targeting `main`:
 
-1. **Lint** — ESLint
-2. **Build** — `next build`
+1. **Lint** — ESLint with React hooks rules
+2. **Build** — `next build` (Turbopack)
 3. **Type check** — `tsc --noEmit`
 
 Vercel is connected via GitHub integration:
@@ -99,4 +116,5 @@ Vercel is connected via GitHub integration:
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+This project is licensed under the MIT License — see [LICENSE](./LICENSE) for details.  
+Personal data (name, contact info, work history) belongs to Bogdan-Cosmin Istrate and must be replaced if you fork this project.

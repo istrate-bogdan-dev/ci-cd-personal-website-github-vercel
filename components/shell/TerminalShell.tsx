@@ -21,14 +21,25 @@ export default function TerminalShell() {
     [dispatch]
   );
 
-  const handleSubmit = useCallback(
+  // registryRef is stable — registry object never changes after module init
+  const runCommand = useCallback(
     (command: string) => {
       const entry = registry[command];
       if (entry) {
+        // Pass a stable executor so /help clickable commands work
         dispatch({
           type: "SUBMIT",
           command,
-          content: entry.handler(handleSubmit),
+          content: entry.handler((cmd: string) => {
+            const inner = registry[cmd];
+            if (inner) {
+              dispatch({
+                type: "SUBMIT",
+                command: cmd,
+                content: inner.handler(),
+              });
+            }
+          }),
         });
       } else {
         dispatch({
@@ -57,7 +68,7 @@ export default function TerminalShell() {
       outputs={state.outputs}
       input={state.input}
       onInputChange={handleInputChange}
-      onSubmit={handleSubmit}
+      onSubmit={runCommand}
     />
   );
 }

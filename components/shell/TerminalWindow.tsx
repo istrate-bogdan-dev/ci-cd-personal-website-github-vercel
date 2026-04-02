@@ -24,7 +24,7 @@ function HeroContent() {
     <div className="mb-6">
       {/* ASCII banner — hidden on mobile */}
       <pre
-        className="hidden sm:block text-xs leading-tight mb-4"
+        className="hidden sm:block text-sm leading-tight mb-4"
         style={{ color: "var(--accent)" }}
       >
         {ASCII_BANNER}
@@ -49,7 +49,7 @@ function HeroContent() {
           (tag) => (
             <span
               key={tag}
-              className="text-xs px-2 py-0.5 rounded"
+              className="text-sm px-3 py-1 rounded"
               style={{ border: "1px solid var(--accent)", color: "var(--accent)" }}
             >
               {tag}
@@ -58,12 +58,12 @@ function HeroContent() {
         )}
       </div>
 
-      <p style={{ color: "var(--text-muted)" }} className="text-sm">
+      <p style={{ color: "var(--text-muted)" }}>
         Type{" "}
         <span style={{ color: "var(--accent)" }}>/help</span>
         {" "}to see all available commands.
       </p>
-      <p style={{ color: "var(--text-muted)" }} className="text-sm">
+      <p style={{ color: "var(--text-muted)" }}>
         Try{" "}
         <span style={{ color: "var(--accent)" }}>/deploy</span>
         {" "}for a surprise.
@@ -97,7 +97,7 @@ export default function TerminalWindow({
       <div
         className="w-full rounded-lg overflow-hidden"
         style={{
-          maxWidth: "800px",
+          maxWidth: "1000px",
           background: "var(--bg-glass)",
           border: "1px solid var(--border)",
           backdropFilter: "blur(8px)",
@@ -105,17 +105,17 @@ export default function TerminalWindow({
       >
         {/* Title bar */}
         <div
-          className="flex items-center px-4 py-3 border-b"
+          className="flex items-center px-5 py-4 border-b"
           style={{ borderColor: "var(--border)", background: "var(--bg-secondary)" }}
         >
           {/* Traffic lights — hidden on mobile */}
           <div className="hidden sm:flex items-center gap-2 mr-4">
-            <span className="w-3 h-3 rounded-full bg-red-500 inline-block" />
-            <span className="w-3 h-3 rounded-full bg-yellow-400 inline-block" />
-            <span className="w-3 h-3 rounded-full bg-green-500 inline-block" />
+            <span className="w-4 h-4 rounded-full bg-red-500 inline-block" />
+            <span className="w-4 h-4 rounded-full bg-yellow-400 inline-block" />
+            <span className="w-4 h-4 rounded-full bg-green-500 inline-block" />
           </div>
           <span
-            className="text-xs mx-auto"
+            className="text-sm mx-auto"
             style={{ color: "var(--text-secondary)" }}
           >
             bogdan@cloud ~ /portfolio
@@ -124,8 +124,8 @@ export default function TerminalWindow({
 
         {/* Body */}
         <div
-          className="px-4 py-6 overflow-y-auto"
-          style={{ maxHeight: "70vh" }}
+          className="px-6 py-8 overflow-y-auto"
+          style={{ maxHeight: "75vh" }}
         >
           <HeroContent />
           <OutputRenderer outputs={outputs} />

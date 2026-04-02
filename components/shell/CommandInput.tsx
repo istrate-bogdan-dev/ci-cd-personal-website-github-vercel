@@ -25,7 +25,7 @@ export default function CommandInput({ value, onChange, onSubmit }: Props) {
 
   return (
     <div
-      className="flex items-center px-4 py-3 border-t"
+      className="flex items-center px-6 py-4 border-t"
       style={{ borderColor: "var(--border)" }}
       onClick={() => inputRef.current?.focus()}
     >
@@ -38,7 +38,7 @@ export default function CommandInput({ value, onChange, onSubmit }: Props) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
-        className="flex-1 bg-transparent outline-none font-mono text-sm"
+        className="flex-1 bg-transparent outline-none font-mono text-base"
         style={{ color: "var(--text-primary)", caretColor: "var(--accent)" }}
         spellCheck={false}
         autoComplete="off"

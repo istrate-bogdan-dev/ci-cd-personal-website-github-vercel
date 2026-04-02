@@ -41,7 +41,7 @@ function HeroContent({ onCommand }: { onCommand: (cmd: string) => void }) {
         Cloud Solutions Architect · AWS · DevOps · FinOps
       </p>
       <p style={{ color: "var(--text-secondary)" }} className="mb-4">
-        Bucharest, Romania · Open to remote
+        Bucharest, Romania · Open to new opportunities
       </p>
 
       <div className="flex flex-wrap gap-2 mb-6">

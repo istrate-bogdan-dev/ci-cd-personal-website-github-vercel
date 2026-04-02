@@ -19,7 +19,7 @@ const ASCII_BANNER = `
  | | ___) || | |  _ // ___ \\| | | |___
 |___|____/ |_| |_| \\_\\_/   \\_|_| |_____|`.trim();
 
-function HeroContent() {
+function HeroContent({ onCommand }: { onCommand: (cmd: string) => void }) {
   return (
     <div className="mb-6">
       {/* ASCII banner — hidden on mobile */}
@@ -38,14 +38,14 @@ function HeroContent() {
       </p>
 
       <p style={{ color: "var(--text-primary)" }} className="mb-1">
-        Cloud Engineer · DevOps · DevSecOps
+        Cloud Solutions Architect · AWS · DevOps · FinOps
       </p>
       <p style={{ color: "var(--text-secondary)" }} className="mb-4">
         Bucharest, Romania · Open to remote
       </p>
 
       <div className="flex flex-wrap gap-2 mb-6">
-        {["AWS Certified", "Terraform", "Kubernetes", "Docker", "GitHub Actions"].map(
+        {["AWS Certified SAA-C03", "Terraform", "AWS DMS", "FinOps", "IAM / Security"].map(
           (tag) => (
             <span
               key={tag}
@@ -59,13 +59,25 @@ function HeroContent() {
       </div>
 
       <p style={{ color: "var(--text-muted)" }}>
-        Type{" "}
-        <span style={{ color: "var(--accent)" }}>/help</span>
+        Type or click{" "}
+        <span
+          onClick={() => onCommand("/help")}
+          style={{ color: "var(--accent)", cursor: "pointer" }}
+          title="Run /help"
+        >
+          /help
+        </span>
         {" "}to see all available commands.
       </p>
       <p style={{ color: "var(--text-muted)" }}>
         Try{" "}
-        <span style={{ color: "var(--accent)" }}>/deploy</span>
+        <span
+          onClick={() => onCommand("/deploy")}
+          style={{ color: "var(--accent)", cursor: "pointer" }}
+          title="Run /deploy"
+        >
+          /deploy
+        </span>
         {" "}for a surprise.
       </p>
     </div>
@@ -85,19 +97,23 @@ export default function TerminalWindow({
   onInputChange,
   onSubmit,
 }: Props) {
-  const outputEndRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to latest output
+  // Scroll to bottom after React paints new output
   useEffect(() => {
-    outputEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    requestAnimationFrame(() => {
+      const el = bodyRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
+    });
   }, [outputs]);
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-animated">
       <div
-        className="w-full rounded-lg overflow-hidden"
+        className="w-full rounded-lg overflow-hidden flex flex-col"
         style={{
           maxWidth: "1000px",
+          height: "85vh",
           background: "var(--bg-glass)",
           border: "1px solid var(--border)",
           backdropFilter: "blur(8px)",
@@ -105,7 +121,7 @@ export default function TerminalWindow({
       >
         {/* Title bar */}
         <div
-          className="flex items-center px-5 py-4 border-b"
+          className="flex items-center px-5 py-4 border-b flex-shrink-0"
           style={{ borderColor: "var(--border)", background: "var(--bg-secondary)" }}
         >
           {/* Traffic lights — hidden on mobile */}
@@ -122,14 +138,13 @@ export default function TerminalWindow({
           </span>
         </div>
 
-        {/* Body */}
+        {/* Body — flex-grow fills remaining space, scrolls internally */}
         <div
-          className="px-6 py-8 overflow-y-auto"
-          style={{ maxHeight: "75vh" }}
+          ref={bodyRef}
+          className="px-6 py-8 overflow-y-auto flex-grow"
         >
-          <HeroContent />
+          <HeroContent onCommand={onSubmit} />
           <OutputRenderer outputs={outputs} />
-          <div ref={outputEndRef} />
         </div>
 
         {/* Input bar */}

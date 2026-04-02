@@ -5,18 +5,7 @@ import { useCallback } from "react";
 import { useTerminal } from "./useTerminal";
 import BootScreen from "./BootScreen";
 import TerminalWindow from "./TerminalWindow";
-import { registry } from "@/components/commands/index";
-
-// Side-effect imports — these register commands into the registry
-import "@/components/commands/help";
-import "@/components/commands/about";
-import "@/components/commands/skills";
-import "@/components/commands/certifications";
-import "@/components/commands/logs";
-import "@/components/commands/projects";
-import "@/components/commands/status";
-import "@/components/commands/contact";
-import "@/components/commands/deploy";
+import { registry } from "@/components/commands/registry";
 
 export default function TerminalShell() {
   const { state, dispatch } = useTerminal();
@@ -39,7 +28,7 @@ export default function TerminalShell() {
         dispatch({
           type: "SUBMIT",
           command,
-          content: entry.handler(),
+          content: entry.handler(handleSubmit),
         });
       } else {
         dispatch({

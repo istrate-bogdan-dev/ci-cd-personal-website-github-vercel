@@ -8,13 +8,8 @@ export type CommandEntry = {
 
 export type CommandRegistry = Record<string, CommandEntry>;
 
-// Registry is populated by registerCommand calls.
-// Each command module imports this and calls registerCommand.
 export const registry: CommandRegistry = {};
 
-export function registerCommand(
-  name: string,
-  entry: CommandEntry
-): void {
+export function registerCommand(name: string, entry: CommandEntry): void {
   registry[name] = entry;
 }

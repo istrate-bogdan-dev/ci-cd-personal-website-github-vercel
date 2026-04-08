@@ -37,6 +37,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# worktrees
+.worktrees/
+
 # ai tooling (local only)
 .superpowers/
 .claude/

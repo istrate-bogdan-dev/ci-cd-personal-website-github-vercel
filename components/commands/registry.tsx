@@ -277,6 +277,39 @@ function ProjectsOutput() {
   );
 }
 
+// ─── /education ──────────────────────────────────────────────────────────────
+
+function EducationOutput() {
+  return (
+    <div>
+      <p style={{ color: "var(--text-secondary)" }}>bogdan@cloud ~ /education</p>
+      <p></p>
+      <div className="mb-4">
+        <p>
+          <span style={{ color: "var(--text-muted)", display: "inline-block", width: "130px", fontSize: "13px" }}>
+            2021–2024
+          </span>
+          <span style={{ color: "var(--accent)", fontWeight: "bold" }}>B.Sc. Computer Science</span>
+        </p>
+        <p style={{ color: "var(--text-muted)", paddingLeft: "130px", fontSize: "13px" }}>
+          "Ovidius" University of Constanța · Faculty of Mathematics and Computer Science
+        </p>
+      </div>
+      <div className="mb-4">
+        <p>
+          <span style={{ color: "var(--text-muted)", display: "inline-block", width: "130px", fontSize: "13px" }}>
+            2001–2005
+          </span>
+          <span style={{ color: "var(--accent)", fontWeight: "bold" }}>B.Sc. Economics</span>
+        </p>
+        <p style={{ color: "var(--text-muted)", paddingLeft: "130px", fontSize: "13px" }}>
+          "Ovidius" University of Constanța · Faculty of Economic Sciences
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ─── /skills ─────────────────────────────────────────────────────────────────
 
 type SkillRowProps = {
@@ -396,6 +429,10 @@ export const registry: CommandRegistry = {
   "/deploy": {
     description: "...",
     handler: () => <DeployOutput />,
+  },
+  "/education": {
+    description: "Academic background & degrees",
+    handler: () => <EducationOutput />,
   },
   "/logs": {
     description: "Experience timeline",

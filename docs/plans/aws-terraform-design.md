@@ -238,11 +238,25 @@ services:
 
 ---
 
+## Unde stă fiecare secret
+
+| Secret | Unde stă | Cine îl citește | Cum ajunge acolo |
+|---|---|---|---|
+| `N8N_ENCRYPTION_KEY` | `terraform.tfvars` → injectat în user data | n8n la boot | Variabilă Terraform sensitivă |
+| `x-internal-key` (webhook secret) | AWS SSM Parameter Store (`/portfolio/n8n/internal-key`) | Vercel la fiecare request API | Creat manual după deploy |
+| OpenAI API Key | n8n UI (Credentials) | n8n la rularea workflow-ului | Introdus manual în interfața n8n |
+
+**De ce SSM pentru `x-internal-key` și nu altceva?**
+Vercel rulează în cloud, fără acces direct la EC2. SSM Parameter Store e singurul loc din care Vercel poate citi un secret la runtime fără a-l hardcoda în codul Next.js sau în variabilele de mediu Vercel ca plaintext. Fluxul: Vercel API Route → citește SSM → adaugă `x-internal-key` în header → n8n verifică header-ul în workflow.
+
+---
+
 ## Ce NU face Terraform (manual după deploy)
 
-1. **SSM Parameter Store** — `/portfolio/n8n/internal-key` creat manual cu valoarea secretă
-2. **n8n Workflow** — configurat manual în UI n8n (webhook + AI Agent + system prompt)
-3. **Vercel Environment Variables** — `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` adăugate manual din outputurile Terraform
+1. **SSM Parameter Store** — `/portfolio/n8n/internal-key` creat manual cu valoarea secretului webhook (tip SecureString)
+2. **OpenAI API Key** — adăugat manual în n8n UI → Credentials → OpenAI
+3. **n8n Workflow** — configurat manual în UI n8n (webhook node + AI Agent node + system prompt)
+4. **Vercel Environment Variables** — `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` adăugate manual din outputurile Terraform
 
 ---
 

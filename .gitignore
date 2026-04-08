@@ -49,6 +49,9 @@ AGENTS.md
 docs/superpowers/
 build_output.log
 
+# Terraform infrastructure (local state)
+AWS_Terraform/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

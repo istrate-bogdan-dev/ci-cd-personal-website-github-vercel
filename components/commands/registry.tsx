@@ -292,7 +292,7 @@ function EducationOutput() {
           <span style={{ color: "var(--accent)", fontWeight: "bold" }}>B.Sc. Computer Science</span>
         </p>
         <p style={{ color: "var(--text-muted)", paddingLeft: "130px", fontSize: "13px" }}>
-          "Ovidius" University of Constanța · Faculty of Mathematics and Computer Science
+          &quot;Ovidius&quot; University of Constanța · Faculty of Mathematics and Computer Science
         </p>
       </div>
       <div className="mb-4">
@@ -303,7 +303,7 @@ function EducationOutput() {
           <span style={{ color: "var(--accent)", fontWeight: "bold" }}>B.Sc. Economics</span>
         </p>
         <p style={{ color: "var(--text-muted)", paddingLeft: "130px", fontSize: "13px" }}>
-          "Ovidius" University of Constanța · Faculty of Economic Sciences
+          &quot;Ovidius&quot; University of Constanța · Faculty of Economic Sciences
         </p>
       </div>
     </div>

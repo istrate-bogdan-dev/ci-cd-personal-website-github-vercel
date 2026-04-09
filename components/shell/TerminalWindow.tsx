@@ -2,9 +2,10 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { Output } from "./useTerminal";
+import { Output, TerminalMode, ChatMessage as ChatMessageType } from "./useTerminal";
 import CommandInput from "./CommandInput";
 import OutputRenderer from "./OutputRenderer";
+import ChatMessage from "@/components/chat/ChatMessage";
 
 const ASCII_BANNER = `
  ____   ___   ____ ____    _    _   _
@@ -84,11 +85,41 @@ function HeroContent({ onCommand }: { onCommand: (cmd: string) => void }) {
   );
 }
 
+function ChatArea({ messages, isLoading }: { messages: ChatMessageType[]; isLoading: boolean }) {
+  return (
+    <div className="space-y-3">
+      <p className="font-mono text-sm" style={{ color: "var(--text-secondary)" }}>
+        bogdan@cloud ~ /chat
+      </p>
+      <p className="font-mono text-sm" style={{ color: "var(--text-muted)" }}>
+        Mod chat activ. Pune orice întrebare despre Bogdan. Tastează{" "}
+        <span style={{ color: "var(--accent)" }}>/exit</span> pentru a ieși.
+      </p>
+      <p style={{ color: "var(--border)" }} className="font-mono text-sm">{"─".repeat(50)}</p>
+      {messages.map((msg, i) => (
+        <ChatMessage
+          key={i}
+          message={msg}
+          animate={msg.role === "agent" && i === messages.length - 1}
+        />
+      ))}
+      {isLoading && (
+        <p className="font-mono text-sm" style={{ paddingLeft: "16px", color: "var(--text-muted)" }}>
+          <span style={{ color: "var(--accent)" }}>●</span> gândesc...
+        </p>
+      )}
+    </div>
+  );
+}
+
 type Props = {
   outputs: Output[];
   input: string;
   onInputChange: (value: string) => void;
   onSubmit: (value: string) => void;
+  mode?: TerminalMode;
+  chatMessages?: ChatMessageType[];
+  isLoading?: boolean;
 };
 
 export default function TerminalWindow({
@@ -96,6 +127,9 @@ export default function TerminalWindow({
   input,
   onInputChange,
   onSubmit,
+  mode = "IDLE",
+  chatMessages = [],
+  isLoading = false,
 }: Props) {
   const bodyRef = useRef<HTMLDivElement>(null);
 
@@ -105,7 +139,7 @@ export default function TerminalWindow({
       const el = bodyRef.current;
       if (el) el.scrollTop = el.scrollHeight;
     });
-  }, [outputs]);
+  }, [outputs, chatMessages, isLoading]);
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-animated">
@@ -134,7 +168,7 @@ export default function TerminalWindow({
             className="text-sm mx-auto"
             style={{ color: "var(--text-secondary)" }}
           >
-            bogdan@cloud ~ /portfolio
+            {mode === "CHAT_MODE" ? "bogdan@cloud ~ /chat" : "bogdan@cloud ~ /portfolio"}
           </span>
         </div>
 
@@ -143,8 +177,14 @@ export default function TerminalWindow({
           ref={bodyRef}
           className="px-6 py-8 overflow-y-auto flex-grow"
         >
-          <HeroContent onCommand={onSubmit} />
-          <OutputRenderer outputs={outputs} />
+          {mode === "CHAT_MODE" ? (
+            <ChatArea messages={chatMessages} isLoading={isLoading} />
+          ) : (
+            <>
+              <HeroContent onCommand={onSubmit} />
+              <OutputRenderer outputs={outputs} />
+            </>
+          )}
         </div>
 
         {/* Input bar */}
@@ -152,6 +192,8 @@ export default function TerminalWindow({
           value={input}
           onChange={onInputChange}
           onSubmit={onSubmit}
+          mode={mode}
+          disabled={mode === "CHAT_MODE" && isLoading}
         />
       </div>
     </div>

@@ -25,8 +25,8 @@ function HeroContent({ onCommand }: { onCommand: (cmd: string) => void }) {
     <div className="mb-6">
       {/* ASCII banner — hidden on mobile */}
       <pre
-        className="hidden sm:block text-sm leading-tight mb-4"
-        style={{ color: "var(--accent)" }}
+        className="hidden sm:block leading-tight mb-4"
+        style={{ color: "var(--accent)", fontSize: "13px", letterSpacing: "0", fontFamily: "inherit" }}
       >
         {ASCII_BANNER}
       </pre>

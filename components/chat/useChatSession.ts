@@ -4,7 +4,7 @@
 import { useRef, useState, useCallback } from "react";
 
 const INACTIVITY_TIMEOUT_MS = 5 * 60 * 1000; // 5 minute
-const INACTIVITY_MESSAGE = "⚠ Sesiune închisă automat după 5 minute de inactivitate.";
+const INACTIVITY_MESSAGE = "⚠ Session automatically closed after 5 minutes of inactivity.";
 
 type SendOptions = {
   sessionId: string;
@@ -65,11 +65,11 @@ export function useChatSession() {
         if (!res.ok) {
           const status = res.status;
           if (status === 400) {
-            onAgentReply("⚠ Mesajul este prea lung (max 500 caractere).");
+            onAgentReply("⚠ Message is too long (max 500 characters).");
           } else if (status === 504) {
-            onAgentReply("⚠ Agentul nu răspunde. Încearcă din nou.");
+            onAgentReply("⚠ The agent is not responding. Please try again.");
           } else {
-            onAgentReply("⚠ Serviciul de chat nu este disponibil momentan.");
+            onAgentReply("⚠ Chat service is currently unavailable.");
           }
           return;
         }
@@ -78,13 +78,13 @@ export function useChatSession() {
         if (typeof data?.reply === "string") {
           onAgentReply(data.reply);
         } else {
-          onAgentReply("⚠ Răspuns neașteptat. Încearcă din nou.");
+          onAgentReply("⚠ Unexpected response. Please try again.");
         }
       } catch (err) {
         if (err instanceof DOMException && err.name === "TimeoutError") {
-          onAgentReply("⚠ Agentul nu răspunde. Încearcă din nou.");
+          onAgentReply("⚠ The agent is not responding. Please try again.");
         } else {
-          onAgentReply("⚠ Serviciul de chat nu este disponibil momentan.");
+          onAgentReply("⚠ Chat service is currently unavailable.");
         }
       } finally {
         setIsLoading(false);

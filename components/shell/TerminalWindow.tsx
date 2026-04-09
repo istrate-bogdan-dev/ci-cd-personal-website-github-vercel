@@ -7,34 +7,38 @@ import CommandInput from "./CommandInput";
 import OutputRenderer from "./OutputRenderer";
 import ChatMessage from "@/components/chat/ChatMessage";
 
-// figlet "standard" font — BOGDAN / ISTRATE
-// Using String.raw to preserve backslashes literally
+// figlet "Big Money-sw" font
 const ASCII_BANNER = String.raw`
- ____   ___   ____ ____    _    _   _
-| __ ) / _ \ / ___|  _ \  / \  | \ | |
-|  _ \| | | | |  _| | | |/ _ \ |  \| |
-| |_) | |_| | |_| | |_| / ___ \| |\  |
-|____/ \___/ \____|____/_/   \_\_| \_|
+ _______    ______    ______   _______    ______   __    __
+/       \  /      \  /      \ /       \  /      \ /  \  /  |
+$$$$$$$  |/$$$$$$  |/$$$$$$  |$$$$$$$  |/$$$$$$  |$$  \ $$ |
+$$ |__$$ |$$ |  $$ |$$ | _$$/ $$ |  $$ |$$ |__$$ |$$$  \$$ |
+$$    $$< $$ |  $$ |$$ |/    |$$ |  $$ |$$    $$ |$$$$  $$ |
+$$$$$$$  |$$ |  $$ |$$ |$$$$ |$$ |  $$ |$$$$$$$$ |$$ $$ $$ |
+$$ |__$$ |$$ \__$$ |$$ \__$$ |$$ |__$$ |$$ |  $$ |$$ |$$$$ |
+$$    $$/ $$    $$/ $$    $$/ $$    $$/ $$ |  $$ |$$ | $$$ |
+$$$$$$$/   $$$$$$/   $$$$$$/  $$$$$$$/  $$/   $$/ $$/   $$/
 
- ___ ____ _____ ____    _  _____ _____
-|_ _/ ___|_   _|  _ \  / \|_   _| ____|
- | |\___ \ | | | |_) |/ _ \ | | |  _|
- | | ___) || | |  _ // ___ \| | | |___
-|___|____/ |_| |_| \_\_/   \_|_| |_____|`.trimStart();
+ ______   ______   ________  _______    ______   ________  ________
+/      | /      \ /        |/       \  /      \ /        |/        |
+$$$$$$/ /$$$$$$  |$$$$$$$$/ $$$$$$$  |/$$$$$$  |$$$$$$$$/ $$$$$$$$/
+  $$ |  $$ \__$$/    $$ |   $$ |__$$ |$$ |__$$ |   $$ |   $$ |__
+  $$ |  $$      \    $$ |   $$    $$< $$    $$ |   $$ |   $$    |
+  $$ |   $$$$$$  |   $$ |   $$$$$$$  |$$$$$$$$ |   $$ |   $$$$$/
+ _$$ |_ /  \__$$ |   $$ |   $$ |  $$ |$$ |  $$ |   $$ |   $$ |_____
+/ $$   |$$    $$/    $$ |   $$ |  $$ |$$ |  $$ |   $$ |   $$       |
+$$$$$$/  $$$$$$/     $$/    $$/   $$/ $$/   $$/    $$/    $$$$$$$$/`.trimStart();
 
 function HeroContent({ onCommand }: { onCommand: (cmd: string) => void }) {
   return (
     <div className="mb-6">
       {/* ASCII banner — hidden on mobile */}
       <pre
-        className="hidden sm:block leading-tight mb-4 select-none"
+        className="hidden sm:block mb-4"
         style={{
           color: "var(--accent)",
-          fontSize: "0.8125rem",
-          fontFamily: "var(--font-mono), 'JetBrains Mono', monospace",
-          lineHeight: 1.35,
-          letterSpacing: "0",
-          fontFeatureSettings: "'liga' 0, 'calt' 0",
+          fontSize: "9px",
+          lineHeight: 1.0,
         }}
       >
         {ASCII_BANNER}

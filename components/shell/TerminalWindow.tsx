@@ -1,7 +1,7 @@
 // components/shell/TerminalWindow.tsx
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { Output, TerminalMode, ChatMessage as ChatMessageType } from "./useTerminal";
 import CommandInput from "./CommandInput";
 import OutputRenderer from "./OutputRenderer";
@@ -85,7 +85,7 @@ function HeroContent({ onCommand }: { onCommand: (cmd: string) => void }) {
   );
 }
 
-function ChatArea({ messages, isLoading }: { messages: ChatMessageType[]; isLoading: boolean }) {
+function ChatArea({ messages, isLoading, onUpdate }: { messages: ChatMessageType[]; isLoading: boolean; onUpdate: () => void }) {
   return (
     <div className="space-y-3">
       <p className="font-mono text-sm" style={{ color: "var(--text-secondary)" }}>
@@ -101,6 +101,7 @@ function ChatArea({ messages, isLoading }: { messages: ChatMessageType[]; isLoad
           key={i}
           message={msg}
           animate={msg.role === "agent" && i === messages.length - 1}
+          onUpdate={onUpdate}
         />
       ))}
       {isLoading && (
@@ -133,13 +134,15 @@ export default function TerminalWindow({
 }: Props) {
   const bodyRef = useRef<HTMLDivElement>(null);
 
+  const scrollToBottom = useCallback(() => {
+    const el = bodyRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, []);
+
   // Scroll to bottom after React paints new output
   useEffect(() => {
-    requestAnimationFrame(() => {
-      const el = bodyRef.current;
-      if (el) el.scrollTop = el.scrollHeight;
-    });
-  }, [outputs, chatMessages, isLoading]);
+    requestAnimationFrame(scrollToBottom);
+  }, [outputs, chatMessages, isLoading, scrollToBottom]);
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-animated">
@@ -178,7 +181,7 @@ export default function TerminalWindow({
           className="px-6 py-8 overflow-y-auto flex-grow"
         >
           {mode === "CHAT_MODE" ? (
-            <ChatArea messages={chatMessages} isLoading={isLoading} />
+            <ChatArea messages={chatMessages} isLoading={isLoading} onUpdate={scrollToBottom} />
           ) : (
             <>
               <HeroContent onCommand={onSubmit} />

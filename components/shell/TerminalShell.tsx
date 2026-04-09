@@ -62,16 +62,7 @@ export default function TerminalShell() {
         dispatch({
           type: "SUBMIT",
           command,
-          content: entry.handler((cmd: string) => {
-            const inner = registry[cmd];
-            if (inner) {
-              dispatch({
-                type: "SUBMIT",
-                command: cmd,
-                content: inner.handler(),
-              });
-            }
-          }),
+          content: entry.handler((cmd: string) => runCommand(cmd)),
         });
       } else {
         dispatch({

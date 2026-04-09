@@ -92,8 +92,8 @@ function ChatArea({ messages, isLoading }: { messages: ChatMessageType[]; isLoad
         bogdan@cloud ~ /chat
       </p>
       <p className="font-mono text-sm" style={{ color: "var(--text-muted)" }}>
-        Mod chat activ. Pune orice întrebare despre Bogdan. Tastează{" "}
-        <span style={{ color: "var(--accent)" }}>/exit</span> pentru a ieși.
+        Chat mode active. Ask anything about Bogdan. Type{" "}
+        <span style={{ color: "var(--accent)" }}>/exit</span> to leave.
       </p>
       <p style={{ color: "var(--border)" }} className="font-mono text-sm">{"─".repeat(50)}</p>
       {messages.map((msg, i) => (
@@ -105,7 +105,7 @@ function ChatArea({ messages, isLoading }: { messages: ChatMessageType[]; isLoad
       ))}
       {isLoading && (
         <p className="font-mono text-sm" style={{ paddingLeft: "16px", color: "var(--text-muted)" }}>
-          <span style={{ color: "var(--accent)" }}>●</span> gândesc...
+          <span style={{ color: "var(--accent)" }}>●</span> thinking...
         </p>
       )}
     </div>

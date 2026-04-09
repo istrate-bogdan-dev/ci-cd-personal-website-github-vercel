@@ -1,7 +1,7 @@
 // components/shell/TerminalShell.tsx
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useTerminal } from "./useTerminal";
 import { useChatSession } from "@/components/chat/useChatSession";
 import BootScreen from "./BootScreen";
@@ -38,7 +38,8 @@ export default function TerminalShell() {
     }
   }, [state.mode, state.sessionId, startSession, stopSession, dispatch]);
 
-  // registryRef is stable — registry object never changes after module init
+  const runCommandRef = useRef<(command: string) => void>(() => {});
+
   const runCommand = useCallback(
     (command: string) => {
       if (state.mode === "CHAT_MODE") {
@@ -62,7 +63,7 @@ export default function TerminalShell() {
         dispatch({
           type: "SUBMIT",
           command,
-          content: entry.handler((cmd: string) => runCommand(cmd)),
+          content: entry.handler((cmd: string) => runCommandRef.current(cmd)),
         });
       } else {
         dispatch({
@@ -81,6 +82,10 @@ export default function TerminalShell() {
     },
     [state.mode, dispatch, stopSession, sendMessage]
   );
+
+  useEffect(() => {
+    runCommandRef.current = runCommand;
+  });
 
   if (!state.booted) {
     return <BootScreen onComplete={handleBootComplete} />;

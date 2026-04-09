@@ -7,34 +7,38 @@ import CommandInput from "./CommandInput";
 import OutputRenderer from "./OutputRenderer";
 import ChatMessage from "@/components/chat/ChatMessage";
 
-// Each line exactly 40 chars — equal width in monospace
-const ASCII_LINES = [
-  String.raw` ____   ___   ____ ____    _    _   _   `,
-  String.raw`| __ ) / _ \ / ___|  _ \  / \  | \ | |  `,
-  String.raw`|  _ \| | | | |  _| | | |/ _ \ |  \| |  `,
-  String.raw`| |_) | |_| | |_| | |_| / ___ \| |\  |  `,
-  String.raw`|____/ \___/ \____|____/_/   \_\_| \_|  `,
-  String.raw`                                        `,
-  String.raw` ___ ____ _____ ____    _  _____ _____  `,
-  String.raw`|_ _/ ___|_   _|  _ \  / \|_   _| ____| `,
-  String.raw` | |\___ \ | | | |_) |/ _ \ | | |  _|   `,
-  String.raw` | | ___) || | |  _ // ___ \| | | |___| `,
-  String.raw`|___|____/ |_| |_| \_\_/   \_|_| |_____|`,
-];
+// figlet "standard" font — BOGDAN / ISTRATE
+// Using String.raw to preserve backslashes literally
+const ASCII_BANNER = String.raw`
+ ____   ___   ____ ____    _    _   _
+| __ ) / _ \ / ___|  _ \  / \  | \ | |
+|  _ \| | | | |  _| | | |/ _ \ |  \| |
+| |_) | |_| | |_| | |_| / ___ \| |\  |
+|____/ \___/ \____|____/_/   \_\_| \_|
+
+ ___ ____ _____ ____    _  _____ _____
+|_ _/ ___|_   _|  _ \  / \|_   _| ____|
+ | |\___ \ | | | |_) |/ _ \ | | |  _|
+ | | ___) || | |  _ // ___ \| | | |___
+|___|____/ |_| |_| \_\_/   \_|_| |_____|`.trimStart();
 
 function HeroContent({ onCommand }: { onCommand: (cmd: string) => void }) {
   return (
     <div className="mb-6">
       {/* ASCII banner — hidden on mobile */}
-      <div
-        className="hidden sm:block mb-4"
-        style={{ color: "var(--accent)", fontSize: "13px", fontFamily: "inherit", lineHeight: "1.4" }}
-        aria-label="BOGDAN ISTRATE"
+      <pre
+        className="hidden sm:block leading-tight mb-4 select-none"
+        style={{
+          color: "var(--accent)",
+          fontSize: "0.8125rem",
+          fontFamily: "var(--font-mono), 'JetBrains Mono', monospace",
+          lineHeight: 1.35,
+          letterSpacing: "0",
+          fontFeatureSettings: "'liga' 0, 'calt' 0",
+        }}
       >
-        {ASCII_LINES.map((line, i) => (
-          <div key={i} style={{ whiteSpace: "pre" }}>{line}</div>
-        ))}
-      </div>
+        {ASCII_BANNER}
+      </pre>
       {/* Mobile fallback */}
       <p
         className="sm:hidden text-xl font-bold mb-4"

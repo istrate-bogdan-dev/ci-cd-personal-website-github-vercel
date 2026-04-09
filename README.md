@@ -26,8 +26,10 @@ The portfolio renders as a macOS-style terminal window with an animated boot seq
 | `/certifications` | AWS SAA-C03 certification & credentials |
 | `/logs` | Full work experience timeline |
 | `/projects` | GitHub projects & case studies |
+| `/education` | Academic background & degrees |
 | `/status` | Current availability & preferences |
 | `/contact` | Email, GitHub & LinkedIn |
+| `/chat` | **AI assistant** — chat with Bogdan's CV bot (powered by n8n + GPT-4o mini) |
 | `/deploy` | Easter egg 🚀 |
 
 ---
@@ -42,6 +44,10 @@ The portfolio renders as a macOS-style terminal window with an animated boot seq
 | Font | JetBrains Mono (Google Fonts) |
 | Hosting | Vercel |
 | CI/CD | GitHub Actions |
+| AI Orchestration | n8n self-hosted on AWS EC2 (t2.micro) |
+| LLM | OpenAI GPT-4o mini |
+| Secret management | AWS SSM Parameter Store |
+| Infrastructure | Terraform (local modules) — VPC, CloudFront, ACM, Route53, IAM |
 
 ---
 
@@ -52,6 +58,9 @@ app/
   layout.tsx              # Root layout, font loading, metadata
   page.tsx                # Entry point — renders TerminalShell
   globals.css             # CSS variables, animations, scrollbar
+  api/
+    chat/
+      route.ts            # API proxy — validates input, fetches SSM secret, forwards to n8n
 
 components/
   shell/
@@ -60,12 +69,38 @@ components/
     BootScreen.tsx        # Animated boot sequence on first load
     CommandInput.tsx      # Controlled input bar with auto-focus
     OutputRenderer.tsx    # Renders command output history
-    useTerminal.ts        # State machine — boot, type, submit, clear
+    useTerminal.ts        # State machine — IDLE / CHAT_MODE + chat messages
+
+  chat/
+    useChatSession.ts     # Hook — sessionId, sendMessage, 5-min inactivity timer
+    ChatMessage.tsx       # Renders user/agent messages with typing animation
 
   commands/
     registry.tsx          # All command definitions + exported registry object
-    index.ts              # CommandEntry / CommandRegistry types + registerCommand
 ```
+
+---
+
+## AI Chat Feature (`/chat`)
+
+The `/chat` command activates a persistent conversational mode powered by a self-hosted n8n workflow on AWS EC2.
+
+```
+Browser → /api/chat (Vercel)
+            → fetches x-internal-key from AWS SSM Parameter Store
+            → POST https://n8n.bogdanistrate.ro/webhook/chat
+                  → n8n Workflow: Webhook → AI Agent (GPT-4o mini) → Respond to Webhook
+```
+
+**Features:**
+- Persistent session memory per visit (Window Buffer Memory in n8n, keyed by `sessionId`)
+- Typing animation on agent responses
+- 5-minute inactivity auto-close
+- `/exit` to return to normal terminal mode
+
+**Infrastructure (Terraform):**  
+VPC → EC2 t2.micro → Docker (n8n + Nginx) → CloudFront (SSL) → Route53 (`n8n.bogdanistrate.ro`)  
+IAM user with SSM read-only access for Vercel runtime secret fetching.
 
 ---
 

@@ -7,9 +7,10 @@ import { ChatMessage as ChatMessageType } from "@/components/shell/useTerminal";
 type Props = {
   message: ChatMessageType;
   animate?: boolean;
+  onUpdate?: () => void;
 };
 
-export default function ChatMessage({ message, animate = false }: Props) {
+export default function ChatMessage({ message, animate = false, onUpdate }: Props) {
   const [displayed, setDisplayed] = useState(
     animate && message.role === "agent" ? "" : message.text
   );
@@ -22,11 +23,12 @@ export default function ChatMessage({ message, animate = false }: Props) {
     const interval = setInterval(() => {
       i++;
       setDisplayed(message.text.slice(0, i));
+      onUpdate?.();
       if (i >= message.text.length) clearInterval(interval);
     }, 12);
 
     return () => clearInterval(interval);
-  }, [animate, message.role, message.text]);
+  }, [animate, message.role, message.text, onUpdate]);
 
   if (message.role === "user") {
     return (

@@ -175,13 +175,13 @@ export default function TerminalWindow({
           style={{ borderColor: "var(--border)", background: "var(--bg-secondary)" }}
         >
           {/* Traffic lights — hidden on mobile */}
-          <div className="hidden sm:flex items-center gap-2 mr-4">
+          <div className="hidden sm:flex items-center gap-2 mr-8">
             <span className="w-4 h-4 rounded-full bg-red-500 inline-block" />
             <span className="w-4 h-4 rounded-full bg-yellow-400 inline-block" />
             <span className="w-4 h-4 rounded-full bg-green-500 inline-block" />
           </div>
           <span
-            className="text-sm mx-auto"
+            className="text-sm mx-auto pl-2 sm:pl-0"
             style={{ color: "var(--text-secondary)" }}
           >
             {mode === "CHAT_MODE" ? "bogdan@cloud ~ /chat" : "bogdan@cloud ~ /portfolio"}

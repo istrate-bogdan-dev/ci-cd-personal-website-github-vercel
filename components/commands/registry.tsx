@@ -415,7 +415,7 @@ function StatusOutput() {
 
 export const registry: CommandRegistry = {
   "/chat": {
-    description: "Vorbește cu asistentul AI despre Bogdan",
+    description: "Chat with Bogdan's AI assistant",
     handler: () => null,
   },
   "/about": {
@@ -475,10 +475,11 @@ function HelpOutput({ onCommand }: { onCommand?: (cmd: string) => void }) {
           <span
             onClick={() => onCommand?.(name)}
             style={{
-              color: "var(--accent)",
+              color: name === "/chat" ? "#ef4444" : "var(--accent)",
               display: "inline-block",
               width: "200px",
               cursor: onCommand ? "pointer" : "default",
+              fontWeight: name === "/chat" ? "bold" : undefined,
             }}
             title={onCommand ? `Run ${name}` : undefined}
           >

@@ -414,6 +414,10 @@ function StatusOutput() {
 // ─── Registry ────────────────────────────────────────────────────────────────
 
 export const registry: CommandRegistry = {
+  "/chat": {
+    description: "Vorbește cu asistentul AI despre Bogdan",
+    handler: () => null,
+  },
   "/about": {
     description: "Who is Bogdan Istrate?",
     handler: () => <AboutOutput />,

@@ -1,14 +1,16 @@
 // components/shell/TerminalShell.tsx
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useTerminal } from "./useTerminal";
+import { useChatSession } from "@/components/chat/useChatSession";
 import BootScreen from "./BootScreen";
 import TerminalWindow from "./TerminalWindow";
 import { registry } from "@/components/commands/registry";
 
 export default function TerminalShell() {
   const { state, dispatch } = useTerminal();
+  const { isLoading, startSession, stopSession, sendMessage } = useChatSession();
 
   const handleBootComplete = useCallback(() => {
     dispatch({ type: "BOOT_COMPLETE" });
@@ -21,12 +23,42 @@ export default function TerminalShell() {
     [dispatch]
   );
 
+  // Start/stop inactivity timer when entering/exiting CHAT_MODE
+  useEffect(() => {
+    if (state.mode === "CHAT_MODE" && state.sessionId) {
+      startSession({
+        sessionId: state.sessionId,
+        onAgentReply: (text) => dispatch({ type: "CHAT_ADD_AGENT_MESSAGE", text }),
+        onInactivityExit: (message) =>
+          dispatch({ type: "CHAT_ADD_AGENT_MESSAGE", text: message }),
+        onExit: () => dispatch({ type: "EXIT_CHAT" }),
+      });
+    } else {
+      stopSession();
+    }
+  }, [state.mode, state.sessionId, startSession, stopSession, dispatch]);
+
   // registryRef is stable — registry object never changes after module init
   const runCommand = useCallback(
     (command: string) => {
+      if (state.mode === "CHAT_MODE") {
+        if (command === "/exit") {
+          stopSession();
+          dispatch({ type: "EXIT_CHAT" });
+        } else {
+          dispatch({ type: "CHAT_ADD_USER_MESSAGE", text: command });
+          sendMessage(command);
+        }
+        return;
+      }
+
+      if (command === "/chat") {
+        dispatch({ type: "ENTER_CHAT", sessionId: crypto.randomUUID() });
+        return;
+      }
+
       const entry = registry[command];
       if (entry) {
-        // Pass a stable executor so /help clickable commands work
         dispatch({
           type: "SUBMIT",
           command,
@@ -56,7 +88,7 @@ export default function TerminalShell() {
         });
       }
     },
-    [dispatch]
+    [state.mode, dispatch, stopSession, sendMessage]
   );
 
   if (!state.booted) {
@@ -69,6 +101,9 @@ export default function TerminalShell() {
       input={state.input}
       onInputChange={handleInputChange}
       onSubmit={runCommand}
+      mode={state.mode}
+      chatMessages={state.chatMessages}
+      isLoading={isLoading}
     />
   );
 }

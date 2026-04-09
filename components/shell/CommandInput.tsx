@@ -35,7 +35,7 @@ export default function CommandInput({ value, onChange, onSubmit, mode = "IDLE",
 
   const placeholder =
     mode === "CHAT_MODE"
-      ? "Scrie un mesaj... (/exit pentru a ieși)"
+      ? "Type a message... (/exit to leave)"
       : "Type a command... try /help";
 
   return (

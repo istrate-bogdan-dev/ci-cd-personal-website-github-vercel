@@ -7,36 +7,45 @@ import CommandInput from "./CommandInput";
 import OutputRenderer from "./OutputRenderer";
 import ChatMessage from "@/components/chat/ChatMessage";
 
-const ASCII_BANNER = `
- ____   ___   ____ ____    _    _   _
-| __ ) / _ \\ / ___|  _ \\  / \\  | \\ | |
-|  _ \\| | | | |  _| | | |/ _ \\ |  \\| |
-| |_) | |_| | |_| | |_| / ___ \\| |\\  |
-|____/ \\___/ \\____|____/_/   \\_\\_| \\_|
-
- ___ ____ _____ ____    _  _____ _____
-|_ _/ ___|_   _|  _ \\  / \\|_   _| ____|
- | |\\___ \\ | | | |_) |/ _ \\ | | |  _|
- | | ___) || | |  _ // ___ \\| | | |___
-|___|____/ |_| |_| \\_\\_/   \\_|_| |_____|`.trim();
-
 function HeroContent({ onCommand }: { onCommand: (cmd: string) => void }) {
   return (
     <div className="mb-6">
-      {/* ASCII banner — hidden on mobile */}
-      <pre
-        className="hidden sm:block leading-tight mb-4"
-        style={{ color: "var(--accent)", fontSize: "13px", letterSpacing: "0", fontFamily: "inherit" }}
-      >
-        {ASCII_BANNER}
-      </pre>
-      {/* Mobile fallback */}
-      <p
-        className="sm:hidden text-xl font-bold mb-4"
-        style={{ color: "var(--accent)" }}
-      >
-        BOGDAN ISTRATE
-      </p>
+      {/* Name banner — CSS styled, no ASCII alignment issues */}
+      <div className="mb-4">
+        <div
+          className="hidden sm:block"
+          style={{
+            color: "var(--accent)",
+            fontFamily: "inherit",
+            lineHeight: 1,
+          }}
+        >
+          <div style={{ fontSize: "clamp(28px, 5vw, 48px)", fontWeight: 700, letterSpacing: "0.12em" }}>
+            BOGDAN
+          </div>
+          <div style={{ fontSize: "clamp(28px, 5vw, 48px)", fontWeight: 700, letterSpacing: "0.12em" }}>
+            ISTRATE
+          </div>
+          <div
+            style={{
+              fontSize: "11px",
+              letterSpacing: "0.35em",
+              marginTop: "6px",
+              color: "var(--text-muted)",
+              fontWeight: 400,
+            }}
+          >
+            ── CLOUD · DEVOPS · FINOPS ──
+          </div>
+        </div>
+        {/* Mobile fallback */}
+        <p
+          className="sm:hidden text-xl font-bold"
+          style={{ color: "var(--accent)" }}
+        >
+          BOGDAN ISTRATE
+        </p>
+      </div>
 
       <p style={{ color: "var(--text-primary)" }} className="mb-1">
         Cloud Solutions Architect · AWS · DevOps · FinOps

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bogdanistrate.vercel.app/sitemap.xml
+Sitemap: https://ci-cd-personal-website-github-verce.vercel.app/sitemap.xml

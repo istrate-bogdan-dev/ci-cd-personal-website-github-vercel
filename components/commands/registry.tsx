@@ -130,13 +130,15 @@ function ContactOutput() {
 
 function DeployOutput() {
   const lines = [
-    { text: "Initializing deployment sequence...", color: "var(--text-secondary)" },
-    { text: "► kubectl apply -f bogdan-istrate.yaml", color: "var(--text-primary)" },
-    { text: "► Pod/bogdan-istrate created", color: "var(--text-primary)" },
-    { text: "► Readiness probe: PASSING", color: "var(--accent)" },
-    { text: "► Health check:    PASSING", color: "var(--accent)" },
-    { text: "✓ bogdan@cloud deployed successfully. 🚀", color: "var(--accent)" },
-    { text: "  Ready to handle production traffic.", color: "var(--text-primary)" },
+    { text: "git add bogdan-istrate --all-skills", color: "var(--text-primary)" },
+    { text: 'git commit -m "+6 years of cloud experience"', color: "var(--text-primary)" },
+    { text: "git push origin job-market", color: "var(--text-primary)" },
+    { text: "", color: "" },
+    { text: "Enumerating objects: done.", color: "var(--text-secondary)" },
+    { text: "Counting objects: done.", color: "var(--text-secondary)" },
+    { text: "Writing objects: 100% ████████████████ done.", color: "var(--text-secondary)" },
+    { text: "", color: "" },
+    { text: "✓ Push successful. Bogdan is open for opportunities.", color: "var(--accent)" },
   ];
 
   return (

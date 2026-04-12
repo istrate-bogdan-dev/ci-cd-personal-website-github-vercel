@@ -11,7 +11,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bogdanistrate.vercel.app"),
+  metadataBase: new URL("https://ci-cd-personal-website-github-verce.vercel.app"),
   title: "Bogdan Istrate | Cloud Engineer & DevOps",
   description:
     "Cloud Engineer with 12+ years in IT infrastructure. AWS Solutions Architect. Specializing in infrastructure automation, Kubernetes, Terraform, CI/CD, FinOps, and DevSecOps.",
@@ -19,16 +19,14 @@ export const metadata: Metadata = {
     title: "Bogdan Istrate | Cloud Engineer & DevOps",
     description:
       "Infrastructure that scales. Security by design. 12+ years in cloud & IT infrastructure.",
-    url: "https://bogdanistrate.vercel.app",
+    url: "https://ci-cd-personal-website-github-verce.vercel.app",
     siteName: "Bogdan Istrate — Portfolio",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Bogdan Istrate | Cloud Engineer & DevOps",
     description: "Cloud Engineer · AWS · Terraform · Kubernetes",
-    images: ["/og-image.png"],
   },
   robots: { index: true, follow: true },
 };

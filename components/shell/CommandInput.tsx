@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { TerminalMode } from "./useTerminal";
 
 type Props = {
@@ -14,22 +14,14 @@ type Props = {
 export default function CommandInput({ value, onChange, onSubmit, mode = "IDLE", disabled = false }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Keep focus on input so user can type immediately
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
-
-  // Refocus after loading finishes (disabled → enabled transition)
-  useEffect(() => {
-    if (!disabled) {
-      inputRef.current?.focus();
-    }
-  }, [disabled]);
-
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
       const trimmed = value.trim();
-      if (trimmed) onSubmit(trimmed);
+      if (trimmed) {
+        onSubmit(trimmed);
+        // Blur on mobile so the keyboard dismisses after sending
+        inputRef.current?.blur();
+      }
     }
   }
 

@@ -11,6 +11,7 @@ export type ChatMessage = {
 export type Output = {
   command: string;
   content: ReactNode;
+  plainText?: string;
 };
 
 export type TerminalMode = "IDLE" | "CHAT_MODE";
@@ -27,7 +28,7 @@ export type TerminalState = {
 type Action =
   | { type: "BOOT_COMPLETE" }
   | { type: "TYPE"; value: string }
-  | { type: "SUBMIT"; command: string; content: ReactNode }
+  | { type: "SUBMIT"; command: string; content: ReactNode; plainText?: string }
   | { type: "CLEAR" }
   | { type: "ENTER_CHAT"; sessionId: string }
   | { type: "EXIT_CHAT" }
@@ -46,7 +47,7 @@ function reduce(state: TerminalState, action: Action): TerminalState {
         input: "",
         outputs: [
           ...state.outputs,
-          { command: action.command, content: action.content },
+          { command: action.command, content: action.content, plainText: action.plainText },
         ],
       };
     case "CLEAR":

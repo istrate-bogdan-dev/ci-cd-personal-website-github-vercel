@@ -198,7 +198,7 @@ export default function TerminalWindow({
           ) : (
             <>
               <HeroContent onCommand={onSubmit} />
-              <OutputRenderer outputs={outputs} />
+              <OutputRenderer outputs={outputs} onUpdate={scrollToBottom} />
             </>
           )}
         </div>

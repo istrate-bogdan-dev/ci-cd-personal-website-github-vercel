@@ -64,6 +64,7 @@ export default function TerminalShell() {
           type: "SUBMIT",
           command,
           content: entry.handler((cmd: string) => runCommandRef.current(cmd)),
+          plainText: entry.plainText,
         });
       } else {
         dispatch({

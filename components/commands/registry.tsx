@@ -232,47 +232,72 @@ function LogsOutput() {
 
 // ─── /projects ───────────────────────────────────────────────────────────────
 
+type ProjectCardProps = {
+  hash: string;
+  name: string;
+  description: string;
+  tags: string[];
+  url: string;
+};
+
+function ProjectCard({ hash, name, description, tags, url }: ProjectCardProps) {
+  return (
+    <div className="border rounded p-3" style={{ borderColor: "var(--border)" }}>
+      <p>
+        <span style={{ color: "var(--text-muted)", fontSize: "12px" }}>{hash}</span>
+        <span style={{ color: "var(--accent)", marginLeft: "12px", fontWeight: "bold" }}>
+          {name}
+        </span>
+      </p>
+      <p style={{ color: "var(--text-primary)", paddingLeft: "16px" }}>{description}</p>
+      <p style={{ paddingLeft: "16px" }} className="mt-1">
+        {tags.map((tag) => (
+          <span
+            key={tag}
+            className="mr-2 text-xs px-2 py-0.5 rounded"
+            style={{ border: "1px solid var(--border)", color: "var(--text-muted)" }}
+          >
+            {tag}
+          </span>
+        ))}
+      </p>
+      <p style={{ paddingLeft: "16px" }} className="mt-1">
+        <span style={{ color: "var(--text-muted)" }}>→ </span>
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "var(--accent)" }}
+          className="hover:underline"
+        >
+          {url.replace("https://", "")}
+        </a>
+      </p>
+    </div>
+  );
+}
+
 function ProjectsOutput() {
   return (
-    <div className="space-y-1">
+    <div className="space-y-3">
       <p style={{ color: "var(--text-secondary)" }}>
         bogdan@cloud ~ git log --oneline projects/
       </p>
       <p></p>
-      <div className="border rounded p-3" style={{ borderColor: "var(--border)" }}>
-        <p>
-          <span style={{ color: "var(--text-muted)", fontSize: "12px" }}>a1b2c3d</span>
-          <span style={{ color: "var(--accent)", marginLeft: "12px", fontWeight: "bold" }}>
-            terraform-aws-vpc-ha-asg
-          </span>
-        </p>
-        <p style={{ color: "var(--text-primary)", paddingLeft: "16px" }}>
-          High-availability VPC with Auto Scaling Group on AWS
-        </p>
-        <p style={{ paddingLeft: "16px" }} className="mt-1">
-          {["Terraform", "AWS VPC", "ASG", "IAM"].map((tag) => (
-            <span
-              key={tag}
-              className="mr-2 text-xs px-2 py-0.5 rounded"
-              style={{ border: "1px solid var(--border)", color: "var(--text-muted)" }}
-            >
-              {tag}
-            </span>
-          ))}
-        </p>
-        <p style={{ paddingLeft: "16px" }} className="mt-1">
-          <span style={{ color: "var(--text-muted)" }}>→ </span>
-          <a
-            href="https://github.com/istrate-bogdan-dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: "var(--accent)" }}
-            className="hover:underline"
-          >
-            github.com/istrate-bogdan-dev
-          </a>
-        </p>
-      </div>
+      <ProjectCard
+        hash="a1b2c3d"
+        name="terraform-aws-vpc-ha-asg"
+        description="High-availability VPC with Auto Scaling Group, ALB, and multi-AZ deployment on AWS"
+        tags={["Terraform", "AWS VPC", "ASG", "ALB", "IAM"]}
+        url="https://github.com/istrate-bogdan-dev/terraform-aws-vpc-ha-asg"
+      />
+      <ProjectCard
+        hash="9b1a095"
+        name="ci-cd-personal-website-github-vercel"
+        description="Terminal-style portfolio with AI chat agent, CI/CD via GitHub Actions, deployed on Vercel. n8n on AWS EC2 via Terraform."
+        tags={["Next.js", "Vercel", "GitHub Actions", "n8n", "AWS EC2", "Terraform"]}
+        url="https://github.com/istrate-bogdan-dev/ci-cd-personal-website-github-vercel"
+      />
     </div>
   );
 }

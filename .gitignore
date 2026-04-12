@@ -44,6 +44,7 @@ yarn-error.log*
 .superpowers/
 .claude/
 .firecrawl/
+.playwright-mcp/
 CLAUDE.md
 AGENTS.md
 docs/

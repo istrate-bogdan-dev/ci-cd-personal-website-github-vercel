@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 
 export type CommandEntry = {
   description: string;
+  plainText: string;
   handler: (onCommand?: (cmd: string) => void) => ReactNode;
 };
 
@@ -443,46 +444,57 @@ function StatusOutput() {
 export const registry: CommandRegistry = {
   "/chat": {
     description: "Chat with Bogdan's AI assistant",
+    plainText: "Entering chat mode...",
     handler: () => null,
   },
   "/about": {
     description: "Who is Bogdan Istrate?",
+    plainText: `bogdan@cloud ~ /about\n${"─".repeat(50)}\nCloud Solutions Architect with over 6 years of experience\nin IT infrastructure and a dual background in Computer\nScience and Economics.\n\nExpert in end-to-end AWS migrations, transitioning on-premises\ndatabases and legacy infrastructure to scalable, secure cloud\nenvironments.\n\nProven track record as a Group-level Trusted Advisor,\nbridging the gap between technical engineering and business\nvalue across diverse business units.\n\nPhilosophy: cost-aware, security-first, observable infrastructure.\n${"─".repeat(50)}`,
     handler: () => <AboutOutput />,
   },
   "/certifications": {
     description: "Certifications & credentials",
+    plainText: `bogdan@cloud ~ /certifications\n\n✓  AWS Certified Solutions Architect – Associate (SAA-C03)\n   Issued: Feb 2026 · Validation: ee1e08f2a2fa40aea43cf39154ef3e3a\n   → View badge on Credly\n\n○  [ next certification — in progress ]`,
     handler: () => <CertificationsOutput />,
   },
   "/contact": {
     description: "Get in touch",
+    plainText: `bogdan@cloud ~ /contact\n\nemail:      istratebogdancosmin@gmail.com\ngithub:     github.com/istrate-bogdan-dev\nlinkedin:   linkedin.com/in/bogdan-cosmin-istrate`,
     handler: () => <ContactOutput />,
   },
   "/deploy": {
     description: "...",
+    plainText: `bogdan@cloud ~ /deploy\n\ngit add bogdan-istrate --all-skills\ngit commit -m "+6 years of cloud experience"\ngit push origin job-market\n\nEnumerating objects: done.\nCounting objects: done.\nWriting objects: 100% ████████████████ done.\n\n✓ Push successful. Bogdan is open for opportunities.`,
     handler: () => <DeployOutput />,
   },
   "/education": {
     description: "Academic background & degrees",
+    plainText: `bogdan@cloud ~ /education\n\n2021–2024   B.Sc. Computer Science\n            "Ovidius" University of Constanța · Faculty of Mathematics and Computer Science\n\n2001–2005   B.Sc. Economics\n            "Ovidius" University of Constanța · Faculty of Economic Sciences`,
     handler: () => <EducationOutput />,
   },
   "/logs": {
     description: "Experience timeline",
+    plainText: `bogdan@cloud ~ /logs --experience\n\n2022–2025   Cloud Solutions Architect @ E-INFRA  ·  Bucharest, Hybrid\n            ▸ Lead architectural authority for holding's subsidiaries (AWS well-architected reviews)\n            ▸ Led migration of critical industrial assets from on-premises to AWS using DMS & Terraform\n            ▸ FinOps: cost-allocation tags + lifecycle policies → 20% reduction in monthly AWS spend\n            ▸ Engineered multi-AZ architectures ensuring 99.9% uptime with automated DR protocols\n            ▸ Presented ROI analyses and technical roadmaps to Board of Directors\n\n2017–2022   Cloud Engineer @ HTSS  ·  Bucharest, Hybrid\n            ▸ Managed high-traffic AWS environments supporting millions of concurrent users (ALB/NLB, ASG)\n            ▸ Primary technical contact for Tier-1 enterprise clients during pre-launch & post-migration\n            ▸ Python & Bash automation: patching, snapshots, security audits → 30% less manual overhead\n            ▸ Optimized RDS & DynamoDB via indexing + ElastiCache caching layers\n            ▸ Led RCA for complex infrastructure failures; proactive CloudWatch alerting\n\n2010–2016   Systems & Network Administrator @ G&G Romania  ·  Constanta\n            ▸ Full overhaul of IT stack: physical on-premise → modernized hybrid infrastructure\n            ▸ VLAN segmentation, firewall rules, secure VPN tunnels for remote offices\n            ▸ 24/7 business continuity for critical ERP and email systems`,
     handler: () => <LogsOutput />,
   },
   "/projects": {
     description: "GitHub projects & case studies",
+    plainText: `bogdan@cloud ~ git log --oneline projects/\n\na1b2c3d  terraform-aws-vpc-ha-asg\n         High-availability VPC with Auto Scaling Group, ALB, and multi-AZ deployment on AWS\n         [Terraform] [AWS VPC] [ASG] [ALB] [IAM]\n         → github.com/istrate-bogdan-dev/terraform-aws-vpc-ha-asg\n\n9b1a095  ci-cd-personal-website-github-vercel\n         Terminal-style portfolio with AI chat agent, CI/CD via GitHub Actions, deployed on Vercel.\n         [Next.js] [Vercel] [GitHub Actions] [n8n] [AWS EC2] [Terraform]\n         → github.com/istrate-bogdan-dev/ci-cd-personal-website-github-vercel`,
     handler: () => <ProjectsOutput />,
   },
   "/skills": {
     description: "Expertise & capabilities",
+    plainText: `bogdan@cloud ~ /skills\n\n── Cloud\nAWS:        EC2 / VPC / S3 / IAM          ██████████  95%\n            Lambda / ELB / CloudFront      █████████░  90%\n            RDS / Aurora / DynamoDB        █████████░  90%\n            Multi-AZ / HA Architecture     ██████████  95%\nAzure:      Core Services / Networking     ██████░░░░  60%\n            Hybrid Cloud Integration       ██████░░░░  60%\n\n── DevOps\nIaC:        Terraform                      █████████░  90%\nCI/CD:      GitHub Actions                 ████████░░  80%\nContainers: Docker                         ████████░░  80%\n            Kubernetes                     ███████░░░  70%\nMigration:  AWS DMS / Migration Hub        █████████░  90%\n            Snowball / SMS                 ████████░░  80%\nScripting:  Python                         ███████░░░  70%\n            Bash                           ████████░░  80%\n\n── DevSecOps\nIdentity:   IAM / AWS SSO                 █████████░  90%\nProtection: WAF / Shield / KMS             █████████░  90%\nNetwork:    Direct Connect / VPN / SG      ████████░░  80%\nAudit:      CloudTrail / CloudWatch        █████████░  90%\n            AWS Secrets Manager            ████████░░  80%\n\n── FinOps & Leadership\nFinOps:     Cost Optimization              █████████░  90%\n            Tagging / Lifecycle Policies   █████████░  90%\nLeadership: Stakeholder Management         █████████░  90%\n            Pre-sales / Roadmaps           ████████░░  80%`,
     handler: () => <SkillsOutput />,
   },
   "/status": {
     description: "Availability status",
+    plainText: `bogdan@cloud ~ /status\n\nopen_to_work:   true\nrole:           Cloud Solutions Architect / Cloud Engineer\nexperience:     6+ years\navailability:   immediately\npreferred:      remote / hybrid\nlocation:       Bucharest, Romania\nlanguages:      Romanian (native) · English (C1)`,
     handler: () => <StatusOutput />,
   },
   "/help": {
     description: "List all available commands",
+    plainText: `bogdan@cloud ~ /help\n\nAvailable commands:\n\n/about            Who is Bogdan Istrate?\n/certifications   Certifications & credentials\n/chat             Chat with Bogdan's AI assistant\n/contact          Get in touch\n/deploy           ...\n/education        Academic background & degrees\n/logs             Experience timeline\n/projects         GitHub projects & case studies\n/skills           Expertise & capabilities\n/status           Availability status\n/help             List all available commands\n\nClick a command or type it to get started.`,
     handler: (onCommand) => <HelpOutput onCommand={onCommand} />,
   },
 };

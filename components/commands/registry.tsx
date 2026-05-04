@@ -18,35 +18,42 @@ function AboutOutput() {
       <p style={{ color: "var(--text-secondary)" }}>bogdan@cloud ~ /about</p>
       <p style={{ color: "var(--border)" }}>{"─".repeat(50)}</p>
       <p style={{ color: "var(--text-primary)" }}>
-        Cloud Solutions Architect with over 6 years of experience
+        Cloud Solutions Architect &amp; DevOps / SRE Engineer with
       </p>
       <p style={{ color: "var(--text-primary)" }}>
-        in IT infrastructure and a dual background in Computer
+        10+ years of hands-on experience designing, automating, and
       </p>
       <p style={{ color: "var(--text-primary)" }}>
-        Science and Economics.
+        operating production-grade infrastructure across AWS and Azure.
       </p>
       <p></p>
       <p style={{ color: "var(--text-primary)" }}>
-        Expert in end-to-end AWS migrations, transitioning on-premises
+        Specialized in end-to-end cloud migrations, multi-AZ
       </p>
       <p style={{ color: "var(--text-primary)" }}>
-        databases and legacy infrastructure to scalable, secure cloud
+        high-availability architectures, observability, and incident
       </p>
       <p style={{ color: "var(--text-primary)" }}>
-        environments.
+        response. Deep experience with the Microsoft 365 ecosystem and
+      </p>
+      <p style={{ color: "var(--text-primary)" }}>
+        AWS Connect for contact-center workloads.
       </p>
       <p></p>
       <p style={{ color: "var(--text-primary)" }}>
         Proven track record as a{" "}
         <span style={{ color: "var(--accent)" }}>Group-level Trusted Advisor</span>
-        , bridging the gap
+        , bridging
       </p>
       <p style={{ color: "var(--text-primary)" }}>
-        between technical engineering and business value across
+        the gap between technical engineering and business value
       </p>
       <p style={{ color: "var(--text-primary)" }}>
-        diverse business units.
+        across diverse business units.
+      </p>
+      <p></p>
+      <p style={{ color: "var(--accent)" }}>
+        Currently open to B2B remote collaborations only.
       </p>
       <p></p>
       <p style={{ color: "var(--accent)" }}>
@@ -341,29 +348,23 @@ function EducationOutput() {
 
 type SkillRowProps = {
   category: string;
-  name: string;
-  filled: number;
-  total?: number;
-  percent: number;
+  items: string;
 };
 
-function SkillRow({ category, name, filled, total = 10, percent }: SkillRowProps) {
-  const bar = "█".repeat(filled) + "░".repeat(total - filled);
+function SkillRow({ category, items }: SkillRowProps) {
   return (
     <p style={{ color: "var(--text-primary)" }} className="font-mono text-sm">
-      <span style={{ color: "var(--text-secondary)", display: "inline-block", width: "120px", flexShrink: 0 }}>
+      <span style={{ color: "var(--text-secondary)", display: "inline-block", width: "140px", flexShrink: 0 }}>
         {category}
       </span>
-      <span style={{ display: "inline-block", width: "220px" }}>{name}</span>
-      <span style={{ color: "var(--accent)" }}>{bar}</span>
-      <span style={{ color: "var(--text-muted)", marginLeft: "8px" }}>{percent}%</span>
+      <span>{items}</span>
     </p>
   );
 }
 
 function SkillSectionHeader({ label }: { label: string }) {
   return (
-    <p style={{ color: "var(--text-secondary)", marginTop: "8px", marginBottom: "2px" }}>
+    <p style={{ color: "var(--accent)", marginTop: "10px", marginBottom: "4px" }}>
       ── {label}
     </p>
   );
@@ -376,35 +377,29 @@ function SkillsOutput() {
       <p></p>
 
       <SkillSectionHeader label="Cloud" />
-      <SkillRow category="AWS:" name="EC2 / VPC / S3 / IAM" filled={10} percent={95} />
-      <SkillRow category="" name="Lambda / ELB / CloudFront" filled={9} percent={90} />
-      <SkillRow category="" name="RDS / Aurora / DynamoDB" filled={9} percent={90} />
-      <SkillRow category="" name="Multi-AZ / HA Architecture" filled={10} percent={95} />
-      <SkillRow category="Azure:" name="Core Services / Networking" filled={6} percent={60} />
-      <SkillRow category="" name="Hybrid Cloud Integration" filled={6} percent={60} />
+      <SkillRow category="AWS:" items="EC2 · VPC · S3 · IAM · Lambda · ELB · CloudFront" />
+      <SkillRow category="" items="RDS · Aurora · DynamoDB · Multi-AZ / HA Architecture" />
+      <SkillRow category="" items="AWS Connect (contact-center workloads)" />
+      <SkillRow category="Azure:" items="Core Services · Networking · Hybrid Cloud Integration" />
+      <SkillRow category="M365:" items="Azure AD · Intune · Exchange Online · SharePoint · Teams" />
 
-      <SkillSectionHeader label="DevOps" />
-      <SkillRow category="IaC:" name="Terraform" filled={9} percent={90} />
-      <SkillRow category="CI/CD:" name="GitHub Actions" filled={8} percent={80} />
-      <SkillRow category="Containers:" name="Docker" filled={8} percent={80} />
-      <SkillRow category="" name="Kubernetes" filled={7} percent={70} />
-      <SkillRow category="Migration:" name="AWS DMS / Migration Hub" filled={9} percent={90} />
-      <SkillRow category="" name="Snowball / SMS" filled={8} percent={80} />
-      <SkillRow category="Scripting:" name="Python" filled={7} percent={70} />
-      <SkillRow category="" name="Bash" filled={8} percent={80} />
+      <SkillSectionHeader label="DevOps / SRE" />
+      <SkillRow category="IaC:" items="Terraform" />
+      <SkillRow category="CI/CD:" items="GitHub Actions" />
+      <SkillRow category="Containers:" items="Docker · Kubernetes" />
+      <SkillRow category="Migration:" items="AWS DMS · Migration Hub · Snowball · SMS" />
+      <SkillRow category="Scripting:" items="Python · Bash" />
+      <SkillRow category="Observability:" items="CloudWatch · X-Ray · Incident Response · RCA" />
 
       <SkillSectionHeader label="DevSecOps" />
-      <SkillRow category="Identity:" name="IAM / AWS SSO" filled={9} percent={90} />
-      <SkillRow category="Protection:" name="WAF / Shield / KMS" filled={9} percent={90} />
-      <SkillRow category="Network:" name="Direct Connect / VPN / SG" filled={8} percent={80} />
-      <SkillRow category="Audit:" name="CloudTrail / CloudWatch" filled={9} percent={90} />
-      <SkillRow category="" name="AWS Secrets Manager" filled={8} percent={80} />
+      <SkillRow category="Identity:" items="IAM · AWS SSO" />
+      <SkillRow category="Protection:" items="WAF · Shield · KMS" />
+      <SkillRow category="Network:" items="Direct Connect · VPN · Security Groups" />
+      <SkillRow category="Audit:" items="CloudTrail · CloudWatch · AWS Secrets Manager" />
 
       <SkillSectionHeader label="FinOps & Leadership" />
-      <SkillRow category="FinOps:" name="Cost Optimization" filled={9} percent={90} />
-      <SkillRow category="" name="Tagging / Lifecycle Policies" filled={9} percent={90} />
-      <SkillRow category="Leadership:" name="Stakeholder Management" filled={9} percent={90} />
-      <SkillRow category="" name="Pre-sales / Roadmaps" filled={8} percent={80} />
+      <SkillRow category="FinOps:" items="Cost Optimization · Tagging · Lifecycle Policies" />
+      <SkillRow category="Leadership:" items="Stakeholder Management · Pre-sales · Roadmaps" />
     </div>
   );
 }
@@ -417,11 +412,12 @@ function StatusOutput() {
       <p style={{ color: "var(--text-secondary)" }}>bogdan@cloud ~ /status</p>
       <p></p>
       {[
-        ["open_to_work:", "true"],
-        ["role:", "Cloud Solutions Architect / Cloud Engineer"],
-        ["experience:", "6+ years"],
+        ["open_to_work:", "true (B2B remote only)"],
+        ["role:", "Cloud Solutions Architect / DevOps / SRE"],
+        ["experience:", "10+ years"],
         ["availability:", "immediately"],
-        ["preferred:", "remote / hybrid"],
+        ["preferred:", "remote only"],
+        ["engagement:", "B2B"],
         ["location:", "Bucharest, Romania"],
         ["languages:", "Romanian (native) · English (C1)"],
       ].map(([key, val]) => (

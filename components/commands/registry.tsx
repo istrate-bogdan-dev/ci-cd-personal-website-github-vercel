@@ -53,7 +53,7 @@ function AboutOutput() {
       </p>
       <p></p>
       <p style={{ color: "var(--accent)" }}>
-        Currently open to B2B remote collaborations only.
+        Currently open to B2B remote collaborations.
       </p>
       <p></p>
       <p style={{ color: "var(--accent)" }}>
@@ -138,7 +138,7 @@ function ContactOutput() {
 function DeployOutput() {
   const lines = [
     { text: "git add bogdan-istrate --all-skills", color: "var(--text-primary)" },
-    { text: 'git commit -m "+6 years of cloud experience"', color: "var(--text-primary)" },
+    { text: 'git commit -m "+10 years of cloud experience"', color: "var(--text-primary)" },
     { text: "git push origin job-market", color: "var(--text-primary)" },
     { text: "", color: "" },
     { text: "Enumerating objects: done.", color: "var(--text-secondary)" },
@@ -199,7 +199,7 @@ function LogsOutput() {
       <p style={{ color: "var(--text-secondary)" }}>bogdan@cloud ~ /logs --experience</p>
       <p></p>
       <LogEntry
-        period="2022–2025"
+        period="2022–2026"
         role="Cloud Solutions Architect"
         company="E-INFRA"
         location="Bucharest, Hybrid"

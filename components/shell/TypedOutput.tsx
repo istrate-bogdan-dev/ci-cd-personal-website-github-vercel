@@ -1,57 +1,46 @@
 "use client";
 
-import { useEffect, useRef, useState, ReactNode } from "react";
+import { useEffect, useState, ReactNode, isValidElement, Children, cloneElement, ReactElement } from "react";
 
 type Props = {
   content: ReactNode;
-  plainText: string;
   onUpdate?: () => void;
 };
 
-// Animates plainText character by character, then swaps in the real JSX content
-export default function TypedOutput({ content, plainText, onUpdate }: Props) {
-  const [phase, setPhase] = useState<"typing" | "done">("typing");
-  const [displayed, setDisplayed] = useState("");
-  const iRef = useRef(0);
+const LINE_DELAY_MS = 35;
+
+// Reveals the children of the root element one by one, like a real terminal.
+// Falls back to instant render if content is not a single element with children.
+export default function TypedOutput({ content, onUpdate }: Props) {
+  const lines: ReactNode[] = isValidElement(content)
+    ? Children.toArray((content.props as { children?: ReactNode }).children)
+    : [];
+
+  const [visible, setVisible] = useState(lines.length === 0 ? Infinity : 0);
 
   useEffect(() => {
-    iRef.current = 0;
-    setDisplayed("");
-    setPhase("typing");
+    if (lines.length === 0) return;
+    setVisible(0);
 
     const interval = setInterval(() => {
-      iRef.current++;
-      const next = plainText.slice(0, iRef.current);
-      setDisplayed(next);
-      onUpdate?.();
-      if (iRef.current >= plainText.length) {
-        clearInterval(interval);
-        setPhase("done");
+      setVisible((v) => {
+        const next = v + 1;
         onUpdate?.();
-      }
-    }, 18);
+        if (next >= lines.length) clearInterval(interval);
+        return next;
+      });
+    }, LINE_DELAY_MS);
 
     return () => clearInterval(interval);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [plainText]);
+  }, [content]);
 
-  if (phase === "done") {
+  if (lines.length === 0 || !isValidElement(content)) {
     return <>{content}</>;
   }
 
-  return (
-    <pre
-      style={{
-        fontFamily: "inherit",
-        fontSize: "inherit",
-        color: "var(--text-primary)",
-        whiteSpace: "pre-wrap",
-        wordBreak: "break-word",
-        margin: 0,
-      }}
-    >
-      {displayed}
-      <span style={{ color: "var(--accent)" }}>▌</span>
-    </pre>
-  );
+  const element = content as ReactElement<{ children?: ReactNode }>;
+  const revealed = lines.slice(0, visible);
+
+  return cloneElement(element, { children: revealed });
 }

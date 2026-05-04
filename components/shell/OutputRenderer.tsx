@@ -19,12 +19,8 @@ export default function OutputRenderer({ outputs, onUpdate }: Props) {
               <span style={{ color: "var(--accent)" }}>&gt;</span> {output.command}
             </p>
             <div>
-              {isLatest && output.plainText ? (
-                <TypedOutput
-                  content={output.content}
-                  plainText={output.plainText}
-                  onUpdate={onUpdate}
-                />
+              {isLatest ? (
+                <TypedOutput content={output.content} onUpdate={onUpdate} />
               ) : (
                 output.content
               )}

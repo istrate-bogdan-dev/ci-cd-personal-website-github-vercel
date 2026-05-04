@@ -43,6 +43,7 @@ The portfolio renders as a macOS-style terminal window with an animated boot seq
 | Styling | Tailwind CSS v4 |
 | Font | JetBrains Mono (Google Fonts) |
 | Hosting | Vercel |
+| Observability | Vercel Analytics + Speed Insights |
 | CI/CD | GitHub Actions |
 | AI Orchestration | n8n self-hosted on AWS EC2 (t2.micro) |
 | LLM | OpenAI GPT-4o mini |
@@ -55,9 +56,12 @@ The portfolio renders as a macOS-style terminal window with an animated boot seq
 
 ```
 app/
-  layout.tsx              # Root layout, font loading, metadata
+  layout.tsx              # Root layout, font loading, metadata, Analytics + Speed Insights
   page.tsx                # Entry point — renders TerminalShell
   globals.css             # CSS variables, animations, scrollbar
+  icon.svg                # Favicon (terminal-style "B" mark)
+  opengraph-image.tsx     # Dynamic OG image — generated at build time via next/og
+  sitemap.ts              # Sitemap entry for the canonical Vercel URL
   api/
     chat/
       route.ts            # API proxy — validates input, fetches SSM secret, forwards to n8n
@@ -67,13 +71,14 @@ components/
     TerminalShell.tsx     # Top-level orchestrator — boot gate + command dispatch
     TerminalWindow.tsx    # Terminal chrome (title bar, traffic lights, body)
     BootScreen.tsx        # Animated boot sequence on first load
-    CommandInput.tsx      # Controlled input bar with auto-focus
-    OutputRenderer.tsx    # Renders command output history
+    CommandInput.tsx      # Input bar with arrow-key history (last 50 entries)
+    OutputRenderer.tsx    # Renders command output history; wraps the latest in TypedOutput
+    TypedOutput.tsx       # Line-by-line JSX reveal for the most recent command
     useTerminal.ts        # State machine — IDLE / CHAT_MODE + chat messages
 
   chat/
     useChatSession.ts     # Hook — sessionId, sendMessage, 5-min inactivity timer
-    ChatMessage.tsx       # Renders user/agent messages with typing animation
+    ChatMessage.tsx       # Renders user/agent messages with character-by-character typing
 
   commands/
     registry.tsx          # All command definitions + exported registry object

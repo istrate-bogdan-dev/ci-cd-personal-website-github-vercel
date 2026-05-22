@@ -52,14 +52,14 @@ function HeroContent({ onCommand }: { onCommand: (cmd: string) => void }) {
       </p>
 
       <p style={{ color: "var(--text-primary)" }} className="mb-1">
-        Cloud Solutions Architect · AWS · DevOps · FinOps
+        Cloud Solutions Architect · AWS · DevOps · AI/LLM · FinOps
       </p>
       <p style={{ color: "var(--text-secondary)" }} className="mb-4">
         Bucharest, Romania · Open to new opportunities
       </p>
 
       <div className="flex flex-wrap gap-2 mb-6">
-        {["AWS Certified SAA-C03", "Terraform", "AWS DMS", "FinOps", "IAM / Security"].map(
+        {["AWS Certified SAA-C03", "Terraform", "AI / LLM", "AWS DMS", "FinOps", "IAM / Security"].map(
           (tag) => (
             <span
               key={tag}

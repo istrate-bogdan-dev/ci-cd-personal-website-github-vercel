@@ -61,3 +61,19 @@ body {
 ::-webkit-scrollbar       { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* Line-by-line falling animation for terminal output */
+@keyframes fallIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fall {
+  animation: fallIn 0.15s ease-out forwards;
+}

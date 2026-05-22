@@ -504,43 +504,43 @@ export const registry: CommandRegistry = {
   },
   "/about": {
     description: "Who is Bogdan Istrate?",
-    handler: () => <AboutOutput />,
+    handler: () => AboutOutput(),
   },
   "/certifications": {
     description: "Certifications & credentials",
-    handler: () => <CertificationsOutput />,
+    handler: () => CertificationsOutput(),
   },
   "/contact": {
     description: "Get in touch",
-    handler: () => <ContactOutput />,
+    handler: () => ContactOutput(),
   },
   "/deploy": {
     description: "...",
-    handler: () => <DeployOutput />,
+    handler: () => DeployOutput(),
   },
   "/education": {
     description: "Academic background & degrees",
-    handler: () => <EducationOutput />,
+    handler: () => EducationOutput(),
   },
   "/logs": {
     description: "Experience timeline",
-    handler: () => <LogsOutput />,
+    handler: () => LogsOutput(),
   },
   "/projects": {
     description: "GitHub projects & case studies",
-    handler: () => <ProjectsOutput />,
+    handler: () => ProjectsOutput(),
   },
   "/skills": {
     description: "Expertise & capabilities",
-    handler: () => <SkillsOutput />,
+    handler: () => SkillsOutput(),
   },
   "/status": {
     description: "Availability status",
-    handler: () => <StatusOutput />,
+    handler: () => StatusOutput(),
   },
   "/help": {
     description: "List all available commands",
-    handler: (onCommand) => <HelpOutput onCommand={onCommand} />,
+    handler: (onCommand) => HelpOutput({ onCommand }),
   },
 };
 

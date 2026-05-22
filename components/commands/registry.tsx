@@ -93,6 +93,48 @@ function CertificationsOutput() {
       </p>
       <p></p>
       <p>
+        <span style={{ color: "var(--accent)" }}>✓</span>
+        <span style={{ color: "var(--text-primary)", marginLeft: "8px", fontWeight: "bold" }}>
+          AWS Knowledge: Amazon Connect Developer
+        </span>
+      </p>
+      <p style={{ color: "var(--text-muted)", paddingLeft: "20px", fontSize: "14px" }}>
+        Issued: Apr 2026 · Validation: 7b9ab247-f1e0-452f-9344-41b056d8ad3d
+      </p>
+      <p style={{ paddingLeft: "20px" }}>
+        <a
+          href="https://www.credly.com/badges/fc2bcec8-171a-4dd6-905a-e004d3b39de8/linked_in_profile"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "var(--accent)" }}
+          className="hover:underline"
+        >
+          → View badge on Credly
+        </a>
+      </p>
+      <p></p>
+      <p>
+        <span style={{ color: "var(--accent)" }}>✓</span>
+        <span style={{ color: "var(--text-primary)", marginLeft: "8px", fontWeight: "bold" }}>
+          Claude with Amazon Bedrock (Anthropic)
+        </span>
+      </p>
+      <p style={{ color: "var(--text-muted)", paddingLeft: "20px", fontSize: "14px" }}>
+        Issued: Mar 2026 · Validation: yyzirmcf525y
+      </p>
+      <p style={{ paddingLeft: "20px" }}>
+        <a
+          href="https://verify.skilljar.com/c/yyzirmcf525y"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "var(--accent)" }}
+          className="hover:underline"
+        >
+          → View certificate on Skilljar
+        </a>
+      </p>
+      <p></p>
+      <p>
         <span style={{ color: "var(--text-muted)" }}>○</span>
         <span style={{ color: "var(--text-muted)", marginLeft: "8px" }}>
           [ next certification — in progress ]

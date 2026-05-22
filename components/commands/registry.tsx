@@ -425,30 +425,42 @@ function SkillsOutput() {
       <p style={{ color: "var(--text-secondary)" }}>bogdan@cloud ~ /skills</p>
       <p></p>
 
-      <SkillSectionHeader label="Cloud" />
-      <SkillRow category="AWS:" items="EC2 · VPC · S3 · IAM · Lambda · ELB · CloudFront" />
-      <SkillRow category="" items="RDS · Aurora · DynamoDB · Multi-AZ / HA Architecture" />
-      <SkillRow category="" items="AWS Connect (contact-center workloads)" />
-      <SkillRow category="Azure:" items="Core Services · Networking · Hybrid Cloud Integration" />
-      <SkillRow category="M365:" items="Azure AD · Intune · Exchange Online · SharePoint · Teams" />
+      <SkillSectionHeader label="Cloud & AWS" />
+      <SkillRow category="Core:" items="EC2 · S3 · VPC · ELB/ALB/NLB · Auto Scaling · CloudFront · Route 53" />
+      <SkillRow category="Serverless:" items="Lambda · API Gateway · EventBridge · SQS · SNS · Cognito" />
 
-      <SkillSectionHeader label="DevOps / SRE" />
-      <SkillRow category="IaC:" items="Terraform" />
-      <SkillRow category="CI/CD:" items="GitHub Actions" />
-      <SkillRow category="Containers:" items="Docker · Kubernetes" />
-      <SkillRow category="Migration:" items="AWS DMS · Migration Hub · Snowball · SMS" />
-      <SkillRow category="Scripting:" items="Python · Bash" />
-      <SkillRow category="Observability:" items="CloudWatch · X-Ray · Incident Response · RCA" />
+      <SkillSectionHeader label="Databases" />
+      <SkillRow category="Relational:" items="RDS (MySQL, PostgreSQL) · Aurora" />
+      <SkillRow category="NoSQL & Cache:" items="DynamoDB · ElastiCache (Redis) · Query Optimization" />
 
-      <SkillSectionHeader label="DevSecOps" />
-      <SkillRow category="Identity:" items="IAM · AWS SSO" />
-      <SkillRow category="Protection:" items="WAF · Shield · KMS" />
-      <SkillRow category="Network:" items="Direct Connect · VPN · Security Groups" />
-      <SkillRow category="Audit:" items="CloudTrail · CloudWatch · AWS Secrets Manager" />
+      <SkillSectionHeader label="DevOps, IaC & Containers" />
+      <SkillRow category="IaC:" items="Terraform (Advanced) · AWS CDK · Ansible · Python · Bash" />
+      <SkillRow category="CI/CD:" items="GitHub Actions · GitLab CI · Jenkins · ArgoCD · CodePipeline" />
+      <SkillRow category="Containers:" items="Docker · Kubernetes (EKS) · Helm · Istio/Linkerd" />
 
-      <SkillSectionHeader label="FinOps & Leadership" />
-      <SkillRow category="FinOps:" items="Cost Optimization · Tagging · Lifecycle Policies" />
-      <SkillRow category="Leadership:" items="Stakeholder Management · Pre-sales · Roadmaps" />
+      <SkillSectionHeader label="Security & Compliance" />
+      <SkillRow category="Identity & Data:" items="IAM · KMS · Secrets Manager · Encryption" />
+      <SkillRow category="Network & Gov:" items="WAF · Shield · Security Groups · Risk Mitigation" />
+
+      <SkillSectionHeader label="Observability" />
+      <SkillRow category="Metrics & Logs:" items="CloudWatch · Prometheus · Grafana · Loki · OpenTelemetry" />
+      <SkillRow category="Tracing & Ops:" items="X-Ray · CloudTrail · Incident Response · RCA · Runbooks" />
+
+      <SkillSectionHeader label="AI & Automation" />
+      <SkillRow category="Conversational:" items="Amazon Connect · Lex V2 · Amazon Q · Contact Lens" />
+      <SkillRow category="Workflows:" items="n8n · AI Chatbot Integration · LLM APIs · Sentiment Analytics" />
+
+      <SkillSectionHeader label="Development" />
+      <SkillRow category="Languages:" items="Python · Bash · TypeScript · JavaScript · Java" />
+      <SkillRow category="Front-end:" items="React · HTML/CSS · Responsive Design · Vercel" />
+
+      <SkillSectionHeader label="FinOps & Migration" />
+      <SkillRow category="FinOps:" items="Cost Optimization · Savings Plans · Spot Instances · Tagging" />
+      <SkillRow category="Migration:" items="AWS DMS · Migration Hub · Snowball · App Discovery" />
+
+      <SkillSectionHeader label="Platform & Leadership" />
+      <SkillRow category="Architecture:" items="IDP Design · Golden Paths · Self-service Infrastructure" />
+      <SkillRow category="Leadership:" items="Roadmap Ownership · Stakeholder Management · Team Coaching" />
     </div>
   );
 }

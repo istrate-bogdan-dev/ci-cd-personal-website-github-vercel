@@ -47,10 +47,11 @@ export default function TypedOutput({ content, onUpdate }: Props) {
   const element = content as ReactElement<{ children?: ReactNode }>;
   const revealed = lines.slice(0, visible).map((child) => {
     if (isValidElement(child)) {
-      const existingClass = (child.props as any).className || "";
-      return cloneElement(child, {
+      const element = child as ReactElement<{ className?: string }>;
+      const existingClass = element.props.className || "";
+      return cloneElement(element, {
         className: `${existingClass} animate-fall`.trim(),
-      } as any);
+      });
     }
     return child;
   });

@@ -45,12 +45,19 @@ export default function TypedOutput({ content, onUpdate }: Props) {
   }
 
   const element = content as ReactElement<{ children?: ReactNode }>;
+
+  // If the parent is a <p> tag, we must wrap children in <span> to avoid hydration errors
+  // (<div> cannot be a descendant of <p>). We also add inline-block so transforms work.
+  const isInlineContext = element.type === "p";
+  const Wrapper = isInlineContext ? "span" : "div";
+  const wrapperClass = isInlineContext ? "animate-fall inline-block" : "animate-fall";
+
   const revealed = lines.slice(0, visible).map((child, index) => {
     const key = isValidElement(child) && child.key ? child.key : index;
     return (
-      <div key={key} className="animate-fall">
+      <Wrapper key={key} className={wrapperClass}>
         {child}
-      </div>
+      </Wrapper>
     );
   });
 

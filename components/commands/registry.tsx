@@ -307,6 +307,13 @@ function ProjectsOutput() {
         tags={["Next.js", "Vercel", "GitHub Actions", "n8n", "AWS EC2", "Terraform"]}
         url="https://github.com/istrate-bogdan-dev/ci-cd-personal-website-github-vercel"
       />
+      <ProjectCard
+        hash="7f8a9b2"
+        name="shopnova-aws-connect-ai"
+        description="Production-style AI-powered voice contact center using Amazon Connect, Lex V2, Lambda, Amazon Q, and CloudWatch."
+        tags={["AWS Connect", "Lex", "Lambda", "Amazon Q", "CloudWatch"]}
+        url="https://awsconnect.bogdanistrate.ro/"
+      />
     </div>
   );
 }

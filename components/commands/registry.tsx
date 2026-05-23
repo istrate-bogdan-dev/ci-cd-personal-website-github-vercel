@@ -474,7 +474,7 @@ function StatusOutput() {
       <p></p>
       {[
         ["open_to_work:", "true (B2B remote only)"],
-        ["role:", "Cloud Solutions Architect / DevOps / SRE"],
+        ["role:", "Cloud Solutions Architect · Platform Engineer (SPE/SRE) · AI/LLM"],
         ["experience:", "10+ years"],
         ["availability:", "immediately"],
         ["preferred:", "remote only"],

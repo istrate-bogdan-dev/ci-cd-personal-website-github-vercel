@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { TerminalMode } from "./useTerminal";
 
 type Props = {
@@ -18,6 +18,12 @@ export default function CommandInput({ value, onChange, onSubmit, mode = "IDLE",
   // Saves the in-progress input when navigating history
   const draftRef = useRef("");
 
+  useEffect(() => {
+    if (!disabled && window.matchMedia("(pointer: fine)").matches) {
+      inputRef.current?.focus();
+    }
+  }, [disabled]);
+
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
       const trimmed = value.trim();
@@ -26,7 +32,9 @@ export default function CommandInput({ value, onChange, onSubmit, mode = "IDLE",
         setHistoryIndex(-1);
         draftRef.current = "";
         onSubmit(trimmed);
-        inputRef.current?.blur();
+        if (!window.matchMedia("(pointer: fine)").matches) {
+          inputRef.current?.blur();
+        }
       }
       return;
     }
